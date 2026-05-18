@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jorts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-12 19:03+0200\n"
+"POT-Creation-Date: 2026-05-18 14:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Eli\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,8 @@ msgid ""
 "Write down notes, reminders, random thoughts and other short-term "
 "informations"
 msgstr ""
-"Escribir notas, recordatorios, reflexiones y otras informaciones que necesites recordar a corto plazo"
+"Escribir notas, recordatorios, reflexiones y otras informaciones que "
+"necesites recordar a corto plazo"
 
 #: data/jorts.desktop.in.in:13
 msgid "text;plain;plaintext;notepad;notes;sticky;post-it;"
@@ -59,11 +60,13 @@ msgid ""
 "Adaptive: New notes get the zoom and font you last chose, and a random new "
 "color"
 msgstr ""
-"Adaptativo: Las notas nuevas tendrán el zoom y la fuente que elegiste la última vez"
+"Adaptativo: Las notas nuevas tendrán el zoom y la fuente que elegiste la "
+"última vez"
 
 #: data/jorts.metainfo.xml.in.in:17
 msgid "Cute: Each new note has a funny or cute random (editable) title"
-msgstr "Simpático: Cada nota nueva tiene un divertido título aleatorio (editable)"
+msgstr ""
+"Simpático: Cada nota nueva tiene un divertido título aleatorio (editable)"
 
 #: data/jorts.metainfo.xml.in.in:18
 msgid "Handy: You can open links and emails with Ctrl+Click"
@@ -126,7 +129,8 @@ msgid ""
 "Streaming? Worried of someone looking above your shoulder? Try the scribbly "
 "Mode!"
 msgstr ""
-"¿Estás en una videoconferencia? ¿Te preocupa que alguien mire por encima de tu hombro? ¡Prueba el modo borroneo!"
+"¿Estás en una videoconferencia? ¿Te preocupa que alguien mire por encima de "
+"tu hombro? ¡Prueba el modo borroneo!"
 
 #: data/jorts.metainfo.xml.in.in:81
 msgid "Look! Ascii art in a sticky note!"
@@ -178,7 +182,9 @@ msgstr "Nuevo color: ¡Café con leche!"
 
 #: data/jorts.metainfo.xml.in.in:117
 msgid "Added Preferences and Quit to the note right-click"
-msgstr "Se han añadido las opciones «Preferencias» y «Salir» al menú contextual de las notas"
+msgstr ""
+"Se han añadido las opciones «Preferencias» y «Salir» al menú contextual de "
+"las notas"
 
 #: data/jorts.metainfo.xml.in.in:118
 msgid "A lot of under-the-hood spring cleaning"
@@ -214,7 +220,9 @@ msgstr "Versión 4 para adaptarse a la versión de Gtk"
 
 #: data/jorts.metainfo.xml.in.in:143
 msgid "Added button to toggle lists, and ability to customize them"
-msgstr "Se ha añadido un botón para mostrar u ocultar las listas, así como la posibilidad de personalizarlas"
+msgstr ""
+"Se ha añadido un botón para mostrar u ocultar las listas, así como la "
+"posibilidad de personalizarlas"
 
 #: data/jorts.metainfo.xml.in.in:144
 msgid "Ctrl+Scroll to zoom-in, zoom-out"

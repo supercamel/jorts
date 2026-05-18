@@ -95,7 +95,7 @@ gnome.post_install(
   update_desktop_database: true
   )
 
-if development_build
+if profile == 'development'
 message('''
     
 You now have a development version installed.
