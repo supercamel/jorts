@@ -23,6 +23,7 @@ sources = files (
     'Objects' / 'Zoom.vala',
     'Objects' / 'Themes.vala',
     'Objects' / 'NoteData.vala',
+    'Objects' / 'ListPrefix.vala',
 
     'Utils' / 'Random.vala',
 
@@ -35,6 +36,7 @@ sources = files (
     'Widgets' / 'EditableLabel.vala',
     'Widgets' / 'TextView.vala',
     'Widgets' / 'ActionBar.vala',
+    'Widgets' / 'TextBuffer.vala',
 
     'Widgets' / 'PopoverWidgets' / 'ColorPill.vala',
     'Widgets' / 'PopoverWidgets' / 'ColorBox.vala',

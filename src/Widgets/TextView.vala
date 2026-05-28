@@ -6,18 +6,41 @@
  */
 
 /**
-* A textview incorporating detecting links and emails
-* Fairly vanilla but having a definition allows to easily extend it
-*/
+ * A textview for our sticky notes.
+ * Inherits Hypertextview to detect links and emails
+ * Adds a list feature which is a hot mess
+ */
 public class Jorts.TextView : Granite.HyperTextView {
 
-    private Gtk.EventControllerKey keyboard;
-    public string list_item_start {get; set;}
-    public bool on_list_item {public get; private set;}
+    // We subclass the buffer to manage the list feature at a lower level
+    // We need to keep a reference to its "Extended version"
+    public Jorts.TextBuffer list_buffer;
 
+   /**
+    * We listen to the keyboard to intervene in some situations:
+    * - When someone backspaces on a prefix, to delete it
+    * - When someone hits Enter from a list item, to expand it
+    */
+    private Gtk.EventControllerKey keyboard;
+
+    // We need to keep this reference so we can disconnect a handler after using it
+    private Gdk.FrameClock? frame_clock;
+
+    // Convenience
     public string text {
         owned get {return buffer.text;}
         set {buffer.text = value;}
+    }
+
+    // Wrapper, handles changing prefixes in a convenient way
+    private ListPrefix _listprefix = ListPrefix.DISABLED;
+    public ListPrefix listprefix {
+        get {return _listprefix;}
+        set {
+            list_buffer.list_item_prefix = value.to_string ();
+            _listprefix = value;
+            refresh_indentation ();
+        }
     }
 
     public SimpleActionGroup actions {get; construct;}
@@ -31,7 +54,6 @@ public class Jorts.TextView : Granite.HyperTextView {
     public TextView () {
         Object (
             wrap_mode: Gtk.WrapMode.WORD_CHAR,
-            buffer: new Gtk.TextBuffer (null),
             bottom_margin: SPACING_DOUBLE,
             left_margin: SPACING_DOUBLE,
             right_margin: SPACING_DOUBLE,
@@ -42,12 +64,7 @@ public class Jorts.TextView : Granite.HyperTextView {
     }
 
     construct {
-        /***************************************************/
-        /*              Actions and controllers            */
-        /***************************************************/
 
-
-        // Action stuff
         actions = new SimpleActionGroup ();
         actions.add_action_entries (ACTION_ENTRIES, this);
         insert_action_group ("textview", actions);
@@ -60,8 +77,16 @@ public class Jorts.TextView : Granite.HyperTextView {
         add_controller (keyboard);
 
         // Alternate way to access preferences
-        var menuitem_pref = new GLib.MenuItem (_("Show Preferences"), Application.ACTION_PREFIX + Application.ACTION_SHOW_PREFERENCES);
-        var menuitem_quit = new GLib.MenuItem (_("Quit Jorts"), Application.ACTION_PREFIX + Application.ACTION_QUIT);
+        var menuitem_pref = new GLib.MenuItem (
+            _("Show Preferences"),
+            Application.ACTION_PREFIX + Application.ACTION_SHOW_PREFERENCES
+        );
+
+        var menuitem_quit = new GLib.MenuItem (
+            _("Quit Jorts"),
+            Application.ACTION_PREFIX + Application.ACTION_QUIT
+        );
+
         var extra = new GLib.Menu ();
         var section = new GLib.Menu ();
 
@@ -70,15 +95,54 @@ public class Jorts.TextView : Granite.HyperTextView {
         extra.append_section (null, section);
         extra_menu = extra;
 
+        // We pretty much only use list_buffer since it has the added features
+        list_buffer = new Jorts.TextBuffer ();
+        buffer = (Gtk.TextBuffer)list_buffer;
+
 
         /***************************************************/
         /*              CONNECTS AND BINDS                 */
         /***************************************************/
 
-        Application.gsettings.bind (KEY_LIST,
-            this, "list-item-start",
-            GLib.SettingsBindFlags.DEFAULT);
+        // This a workaround to ensure we always have correct indent at windows start
+        realize.connect (refresh_indentation);
     }
+
+
+    private void refresh_indentation () {
+        var layout = create_pango_layout (_listprefix.to_string ());
+        int indent_width, h;
+        layout.get_pixel_size (out indent_width, out h);
+
+        debug ("\nNEW SIZE: %i", indent_width);
+        list_buffer.indent_width = indent_width;
+    }
+
+    /**
+     * Refreshing after zoom changes requires to wait for layouting phase
+     * This is used so we wait for the appropriate moment to measure prefix size and update indentation
+     */
+    public void queue_refresh_indentation () {
+        frame_clock = get_frame_clock ();
+
+        // No frame_clock, no widget to see, no need to proceed
+        // Without this the thing still works, but spits a lot of errors at app start
+        if (frame_clock == null) {
+            return;
+        }
+
+        frame_clock.request_phase (LAYOUT);
+        frame_clock.layout.connect (clock);
+    }
+
+    /**
+     * Clock 
+     */
+    private void clock () {
+        refresh_indentation ();
+        frame_clock.layout.disconnect (clock);
+    }
+
 
     public void toggle_list () {
         Gtk.TextIter start, end;
@@ -88,89 +152,21 @@ public class Jorts.TextView : Granite.HyperTextView {
         var last_line = end.get_line ();
         debug ("got " + first_line.to_string () + " to " + last_line.to_string ());
 
-        var selected_is_list = this.is_list (first_line, last_line, list_item_start);
+        var selected_is_list = list_buffer.is_list (first_line, last_line);
 
         buffer.begin_user_action ();
         if (selected_is_list) {
-            remove_list (first_line, last_line);
+            list_buffer.remove_list (first_line, last_line);
 
         } else {
-            set_list (first_line, last_line);
+            list_buffer.set_list (first_line, last_line);
         }
+        refresh_indentation ();
         buffer.end_user_action ();
 
         grab_focus ();
     }
 
-    /**
-     * Add the list prefix only to lines who hasnt it already
-     */
-    private bool has_prefix (int line_number) {
-        if (list_item_start == "") {return false;}
-
-        Gtk.TextIter start, end;
-        buffer.get_iter_at_line_offset (out start, line_number, 0);
-
-        end = start.copy ();
-        end.forward_to_line_end ();
-
-        var text_in_line = buffer.get_slice (start, end, false);
-
-        return text_in_line.has_prefix (list_item_start);
-    }
-
-    /**
-     * Checks whether Line x to Line y are all bulleted.
-     */
-    private bool is_list (int first_line, int last_line, string list_item_start) {
-
-        for (int line_number = first_line; line_number <= last_line; line_number++) {
-            debug ("doing line " + line_number.to_string ());
-
-            if (!this.has_prefix (line_number)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Add the list prefix only to lines who hasnt it already
-     */
-    private void set_list (int first_line, int last_line) {
-        Gtk.TextIter line_start;
-        for (int line_number = first_line; line_number <= last_line; line_number++) {
-
-            debug ("doing line " + line_number.to_string ());
-            if (!this.has_prefix (line_number)) {
-                buffer.get_iter_at_line_offset (out line_start, line_number, 0);
-                buffer.insert (ref line_start, list_item_start, -1);
-            }
-        }
-    }
-
-    /**
-     * Remove list prefix from line x to line y. Presuppose it is there
-     */
-    private void remove_list (int first_line, int last_line) {
-        for (int line_number = first_line; line_number <= last_line; line_number++) {
-            remove_prefix (line_number);
-        }
-    }
-
-    /**
-     * Remove list prefix from line x to line y. Presuppose it is there
-     */
-    private void remove_prefix (int line_number) {
-        Gtk.TextIter line_start, prefix_end;
-        var remove_range = list_item_start.char_count ();
-
-        debug ("doing line " + line_number.to_string ());
-        buffer.get_iter_at_line_offset (out line_start, line_number, 0);
-        buffer.get_iter_at_line_offset (out prefix_end, line_number, remove_range);
-        buffer.delete (ref line_start, ref prefix_end);
-    }
 
     /**
      * Handler whenever a key is pressed, to see if user needs something and get ahead
@@ -178,29 +174,30 @@ public class Jorts.TextView : Granite.HyperTextView {
      */
     private bool on_key_pressed (uint keyval, uint keycode, Gdk.ModifierType state) {
 
+
         // If backspace on a prefix: Delete the prefix.
         if (keyval == Gdk.Key.BackSpace) {
-            print ("backspace");
 
             Gtk.TextIter start, end;
-            buffer.get_selection_bounds (out start, out end);
-
+            list_buffer.get_selection_bounds (out start, out end);
             var line_number = start.get_line ();
 
-            if (has_prefix (line_number)) {
+            if (list_buffer.has_prefix (line_number)) {
 
-                buffer.get_iter_at_line_offset (out start, line_number, 0);
-                var text_in_line = buffer.get_slice (start, end, false);
+                list_buffer.get_iter_at_line_offset (out start, line_number, 0);
+                var text_in_line = list_buffer.get_slice (start, end, false);
+                print ("\nLength detected: %i", text_in_line.length);
 
-                if (text_in_line == list_item_start) {
+                if (text_in_line == _listprefix.to_string ()) {
+                    print ("\nremoving prefix at line %i", line_number);
+                    list_buffer.begin_user_action ();
+                    list_buffer.remove_prefix (line_number);
+                    list_buffer.end_user_action ();
 
-                    buffer.begin_user_action ();
-                    buffer.delete (ref start, ref end);
-                    buffer.insert_at_cursor ("\n", -1);
-                    buffer.end_user_action ();
+                    // Stop - Do not propagate further
+                    return true;
                 }
             }
-            return false;
 
         // If Enter on a list item, add a list prefix on the new line
         } else if (keyval == Gdk.Key.Return) {
@@ -208,10 +205,17 @@ public class Jorts.TextView : Granite.HyperTextView {
             buffer.get_selection_bounds (out start, out end);
             var line_number = start.get_line ();
 
-            if (this.has_prefix (line_number)) {
+            if (list_buffer.has_prefix (line_number)) {
 
                 buffer.begin_user_action ();
-                buffer.insert_at_cursor ("\n" + list_item_start, -1);
+                buffer.insert_at_cursor ("\n" + _listprefix.to_string (), -1);
+
+                // Ensure new line has tag applied since it was just inserted
+                buffer.get_iter_at_line_offset (out start, line_number + 1, 0);
+                end = start.copy ();
+                end.forward_to_line_end ();
+                buffer.apply_tag_by_name (TextBuffer.LIST_TAG_NAME, start, end);
+
                 buffer.end_user_action ();
 
                 return true;
@@ -222,13 +226,4 @@ public class Jorts.TextView : Granite.HyperTextView {
         return false;
     }
 
-/*      private void on_cursor_changed () {
-        Gtk.TextIter start, end;
-        buffer.get_selection_bounds (out start, out end);
-        var line_number = start.get_line ();
-
-        on_list_item = this.has_prefix (line_number);
-
-        print ("THIS IS LIST. HAS " + on_list_item.to_string () + "ON LINE " + line_number.to_string ());
-    }  */
 }
