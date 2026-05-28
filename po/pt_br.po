@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jorts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-18 14:15+0200\n"
+"POT-Creation-Date: 2026-05-28 21:53+0200\n"
 "PO-Revision-Date: 2025-02-18 11:43-03\n"
 "Last-Translator: Rodolfo Sabino <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,26 @@ msgstr "Criar uma nova nota"
 #: src/Application.vala:217
 msgid "Show preferences"
 msgstr "Mostrar preferências"
+
+#: src/Objects/ListPrefix.vala:51
+msgid "(Disabled)"
+msgstr ""
+
+#: src/Objects/ListPrefix.vala:52
+msgid " • List item"
+msgstr ""
+
+#: src/Objects/ListPrefix.vala:53
+msgid " - List item"
+msgstr ""
+
+#: src/Objects/ListPrefix.vala:54
+msgid " ~ List item"
+msgstr ""
+
+#: src/Objects/ListPrefix.vala:55
+msgid " . List item"
+msgstr ""
 
 #. Translators: "Forgot title!" is optional. It never happened for me when testing, and may appear only if users tampered with the savefile
 #: src/Objects/NoteData.vala:49
@@ -342,36 +362,31 @@ msgstr ""
 msgid "Request to system sent"
 msgstr "Solicitação enviada ao sistema"
 
-#: src/Views/PreferencesView.vala:51
-#, fuzzy
-msgid "Reset to default"
-msgstr "Redefinir para o padrão"
-
 #: src/Views/PreferencesView.vala:54
 msgid "List item prefix"
 msgstr ""
 
 #: src/Views/PreferencesView.vala:56
-msgid "If left empty, the list button will be hidden"
+msgid "If disabled, the toggle list button will be hidden"
 msgstr ""
 
-#: src/Views/PreferencesView.vala:78
+#: src/Views/PreferencesView.vala:74
 #, fuzzy
 msgid "Scribble mode"
 msgstr "Ativar o modo scribbly"
 
-#: src/Views/PreferencesView.vala:79
+#: src/Views/PreferencesView.vala:75
 #, fuzzy
 msgid "Scribble text of unfocused notes (Ctrl+H)"
 msgstr "ocultar o conteúdo de notas pegajosas sem foco"
 
 #. TRANSLATORS: Instead of bottom bar you can also use "Action bar" or "button bar"
-#: src/Views/PreferencesView.vala:91
+#: src/Views/PreferencesView.vala:87
 #, fuzzy
 msgid "Hide bottom bar"
 msgstr "Ocultar a barra de botões"
 
-#: src/Views/PreferencesView.vala:92
+#: src/Views/PreferencesView.vala:88
 #, fuzzy
 msgid "Keyboard shortcuts will still function (Ctrl+T)"
 msgstr ""
@@ -379,32 +394,32 @@ msgstr ""
 "teclado continuarão funcionando (Ctrl+T)"
 
 #. TRANSLATORS: Button to autostart the application
-#: src/Views/PreferencesView.vala:110
+#: src/Views/PreferencesView.vala:106
 msgid "Enable"
 msgstr ""
 
 #. TRANSLATORS: Button to remove the autostart for the application
-#: src/Views/PreferencesView.vala:121
+#: src/Views/PreferencesView.vala:117
 msgid "Disable"
 msgstr ""
 
-#: src/Views/PreferencesView.vala:135
+#: src/Views/PreferencesView.vala:131
 msgid "Automatically start Jorts"
 msgstr ""
 
-#: src/Views/PreferencesView.vala:138
+#: src/Views/PreferencesView.vala:134
 msgid "Show your sticky notes when you log in"
 msgstr ""
 
-#: src/Views/PreferencesView.vala:156
+#: src/Views/PreferencesView.vala:152
 msgid "Support us!"
 msgstr "Apoie-nos!"
 
-#: src/Views/PreferencesView.vala:162
+#: src/Views/PreferencesView.vala:158
 msgid "Close"
 msgstr "Fechar"
 
-#: src/Views/PreferencesView.vala:165
+#: src/Views/PreferencesView.vala:161
 msgid "Close preferences"
 msgstr "Fechar preferências"
 
@@ -473,12 +488,12 @@ msgid "Zoom in"
 msgstr "Aumentar o zoom"
 
 #. Alternate way to access preferences
-#: src/Widgets/TextView.vala:63
+#: src/Widgets/TextView.vala:81
 #, fuzzy
 msgid "Show Preferences"
 msgstr "Mostrar preferências"
 
-#: src/Widgets/TextView.vala:64
+#: src/Widgets/TextView.vala:86
 #, fuzzy
 msgid "Quit Jorts"
 msgstr " - Jorts"
@@ -500,15 +515,19 @@ msgstr "Preferências para esta nota pegajosa"
 #. TRANSLATORS: "%s" is replaced by a specific sticky note title
 #. Ex: "To remember - Jorts"
 #. The text is shown in overviews of all open windows, accompanying the window
-#: src/Windows/StickyNoteWindow.vala:152 src/Windows/StickyNoteWindow.vala:192
+#: src/Windows/StickyNoteWindow.vala:154 src/Windows/StickyNoteWindow.vala:194
 #, c-format
 msgid "%s - Jorts (Development)"
 msgstr ""
 
-#: src/Windows/StickyNoteWindow.vala:154 src/Windows/StickyNoteWindow.vala:194
+#: src/Windows/StickyNoteWindow.vala:156 src/Windows/StickyNoteWindow.vala:196
 #, fuzzy, c-format
 msgid "%s - Jorts"
 msgstr " - Jorts"
+
+#, fuzzy
+#~ msgid "Reset to default"
+#~ msgstr "Redefinir para o padrão"
 
 #~ msgid "To not forget, ever"
 #~ msgstr "Não se esqueça!"

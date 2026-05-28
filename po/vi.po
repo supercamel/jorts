@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jorts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-18 14:15+0200\n"
+"POT-Creation-Date: 2026-05-28 21:53+0200\n"
 "PO-Revision-Date: 2025-12-14 19:31+0700\n"
 "Last-Translator: Loc Huynh <https://github.com/hthienloc>\n"
 "Language-Team: \n"
@@ -22,6 +22,31 @@ msgstr "Tạo ghi chú mới"
 #: src/Application.vala:217
 msgid "Show preferences"
 msgstr "Hiển thị tùy chỉnh"
+
+#: src/Objects/ListPrefix.vala:51
+#, fuzzy
+msgid "(Disabled)"
+msgstr "Tắt"
+
+#: src/Objects/ListPrefix.vala:52
+#, fuzzy
+msgid " • List item"
+msgstr "Prefix mục danh sách"
+
+#: src/Objects/ListPrefix.vala:53
+#, fuzzy
+msgid " - List item"
+msgstr "Prefix mục danh sách"
+
+#: src/Objects/ListPrefix.vala:54
+#, fuzzy
+msgid " ~ List item"
+msgstr "Prefix mục danh sách"
+
+#: src/Objects/ListPrefix.vala:55
+#, fuzzy
+msgid " . List item"
+msgstr "Prefix mục danh sách"
 
 #. Translators: "Forgot title!" is optional. It never happened for me when testing, and may appear only if users tampered with the savefile
 #: src/Objects/NoteData.vala:49
@@ -342,62 +367,59 @@ msgstr ""
 msgid "Request to system sent"
 msgstr "Đã gửi yêu cầu tới hệ thống"
 
-#: src/Views/PreferencesView.vala:51
-msgid "Reset to default"
-msgstr ""
-
 #: src/Views/PreferencesView.vala:54
 msgid "List item prefix"
 msgstr "Prefix mục danh sách"
 
 #: src/Views/PreferencesView.vala:56
-msgid "If left empty, the list button will be hidden"
+#, fuzzy
+msgid "If disabled, the toggle list button will be hidden"
 msgstr "Nếu để trống, nút danh sách sẽ ẩn"
 
-#: src/Views/PreferencesView.vala:78
+#: src/Views/PreferencesView.vala:74
 msgid "Scribble mode"
 msgstr "Chế độ viết nguệch ngoạc"
 
-#: src/Views/PreferencesView.vala:79
+#: src/Views/PreferencesView.vala:75
 msgid "Scribble text of unfocused notes (Ctrl+H)"
 msgstr "Viết nguệch ngoạc văn bản của các ghi chú không tập trung (Ctrl+H)"
 
 #. TRANSLATORS: Instead of bottom bar you can also use "Action bar" or "button bar"
-#: src/Views/PreferencesView.vala:91
+#: src/Views/PreferencesView.vala:87
 msgid "Hide bottom bar"
 msgstr "Ẩn thanh dưới cùng"
 
-#: src/Views/PreferencesView.vala:92
+#: src/Views/PreferencesView.vala:88
 msgid "Keyboard shortcuts will still function (Ctrl+T)"
 msgstr "Phím tắt vẫn hoạt động (Ctrl+T)"
 
 #. TRANSLATORS: Button to autostart the application
-#: src/Views/PreferencesView.vala:110
+#: src/Views/PreferencesView.vala:106
 msgid "Enable"
 msgstr "Bật"
 
 #. TRANSLATORS: Button to remove the autostart for the application
-#: src/Views/PreferencesView.vala:121
+#: src/Views/PreferencesView.vala:117
 msgid "Disable"
 msgstr "Tắt"
 
-#: src/Views/PreferencesView.vala:135
+#: src/Views/PreferencesView.vala:131
 msgid "Automatically start Jorts"
 msgstr "Tự động khởi động Jorts"
 
-#: src/Views/PreferencesView.vala:138
+#: src/Views/PreferencesView.vala:134
 msgid "Show your sticky notes when you log in"
 msgstr "Hiển thị giấy ghi chú của bạn khi bạn đăng nhập"
 
-#: src/Views/PreferencesView.vala:156
+#: src/Views/PreferencesView.vala:152
 msgid "Support us!"
 msgstr "Hỗ trợ chúng tôi!"
 
-#: src/Views/PreferencesView.vala:162
+#: src/Views/PreferencesView.vala:158
 msgid "Close"
 msgstr "Đóng"
 
-#: src/Views/PreferencesView.vala:165
+#: src/Views/PreferencesView.vala:161
 msgid "Close preferences"
 msgstr "Đóng tùy chỉnh"
 
@@ -463,11 +485,11 @@ msgid "Zoom in"
 msgstr "Phóng to"
 
 #. Alternate way to access preferences
-#: src/Widgets/TextView.vala:63
+#: src/Widgets/TextView.vala:81
 msgid "Show Preferences"
 msgstr "Hiển thị tùy chọn"
 
-#: src/Widgets/TextView.vala:64
+#: src/Widgets/TextView.vala:86
 msgid "Quit Jorts"
 msgstr "Thoát Jorts"
 
@@ -487,12 +509,12 @@ msgstr "Tùy chỉnh cho Jorts của bạn"
 #. TRANSLATORS: "%s" is replaced by a specific sticky note title
 #. Ex: "To remember - Jorts"
 #. The text is shown in overviews of all open windows, accompanying the window
-#: src/Windows/StickyNoteWindow.vala:152 src/Windows/StickyNoteWindow.vala:192
+#: src/Windows/StickyNoteWindow.vala:154 src/Windows/StickyNoteWindow.vala:194
 #, c-format
 msgid "%s - Jorts (Development)"
 msgstr ""
 
-#: src/Windows/StickyNoteWindow.vala:154 src/Windows/StickyNoteWindow.vala:194
+#: src/Windows/StickyNoteWindow.vala:156 src/Windows/StickyNoteWindow.vala:196
 #, fuzzy, c-format
 msgid "%s - Jorts"
 msgstr " - Jorts"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jorts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-18 14:15+0200\n"
+"POT-Creation-Date: 2026-05-28 21:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,26 @@ msgstr ""
 
 #: src/Application.vala:217
 msgid "Show preferences"
+msgstr ""
+
+#: src/Objects/ListPrefix.vala:51
+msgid "(Disabled)"
+msgstr ""
+
+#: src/Objects/ListPrefix.vala:52
+msgid " • List item"
+msgstr ""
+
+#: src/Objects/ListPrefix.vala:53
+msgid " - List item"
+msgstr ""
+
+#: src/Objects/ListPrefix.vala:54
+msgid " ~ List item"
+msgstr ""
+
+#: src/Objects/ListPrefix.vala:55
+msgid " . List item"
 msgstr ""
 
 #. Translators: "Forgot title!" is optional. It never happened for me when testing, and may appear only if users tampered with the savefile
@@ -341,34 +361,30 @@ msgstr ""
 msgid "Request to system sent"
 msgstr ""
 
-#: src/Views/PreferencesView.vala:51
-msgid "Reset to default"
-msgstr ""
-
 #: src/Views/PreferencesView.vala:54
 msgid "List item prefix"
 msgstr ""
 
 #: src/Views/PreferencesView.vala:56
-msgid "If left empty, the list button will be hidden"
+msgid "If disabled, the toggle list button will be hidden"
 msgstr ""
 
-#: src/Views/PreferencesView.vala:78
+#: src/Views/PreferencesView.vala:74
 msgid "Scribble mode"
 msgstr ""
 
-#: src/Views/PreferencesView.vala:79
+#: src/Views/PreferencesView.vala:75
 #, fuzzy
 msgid "Scribble text of unfocused notes (Ctrl+H)"
 msgstr "Skjul innholdet på ufokuserte klistrelapper"
 
 #. TRANSLATORS: Instead of bottom bar you can also use "Action bar" or "button bar"
-#: src/Views/PreferencesView.vala:91
+#: src/Views/PreferencesView.vala:87
 #, fuzzy
 msgid "Hide bottom bar"
 msgstr "Skjul knappelinjen"
 
-#: src/Views/PreferencesView.vala:92
+#: src/Views/PreferencesView.vala:88
 #, fuzzy
 msgid "Keyboard shortcuts will still function (Ctrl+T)"
 msgstr ""
@@ -376,32 +392,32 @@ msgstr ""
 "klistrelapper. Tastatursnarveier vil fortsatt fungere (Ctrl+T)"
 
 #. TRANSLATORS: Button to autostart the application
-#: src/Views/PreferencesView.vala:110
+#: src/Views/PreferencesView.vala:106
 msgid "Enable"
 msgstr ""
 
 #. TRANSLATORS: Button to remove the autostart for the application
-#: src/Views/PreferencesView.vala:121
+#: src/Views/PreferencesView.vala:117
 msgid "Disable"
 msgstr ""
 
-#: src/Views/PreferencesView.vala:135
+#: src/Views/PreferencesView.vala:131
 msgid "Automatically start Jorts"
 msgstr ""
 
-#: src/Views/PreferencesView.vala:138
+#: src/Views/PreferencesView.vala:134
 msgid "Show your sticky notes when you log in"
 msgstr ""
 
-#: src/Views/PreferencesView.vala:156
+#: src/Views/PreferencesView.vala:152
 msgid "Support us!"
 msgstr "Støtt oss!"
 
-#: src/Views/PreferencesView.vala:162
+#: src/Views/PreferencesView.vala:158
 msgid "Close"
 msgstr "Lukk"
 
-#: src/Views/PreferencesView.vala:165
+#: src/Views/PreferencesView.vala:161
 msgid "Close preferences"
 msgstr ""
 
@@ -468,11 +484,11 @@ msgid "Zoom in"
 msgstr "Zoom inn"
 
 #. Alternate way to access preferences
-#: src/Widgets/TextView.vala:63
+#: src/Widgets/TextView.vala:81
 msgid "Show Preferences"
 msgstr ""
 
-#: src/Widgets/TextView.vala:64
+#: src/Widgets/TextView.vala:86
 #, fuzzy
 msgid "Quit Jorts"
 msgstr "Jorts"
@@ -494,12 +510,12 @@ msgstr "Innstillinger for denne klistrelappen"
 #. TRANSLATORS: "%s" is replaced by a specific sticky note title
 #. Ex: "To remember - Jorts"
 #. The text is shown in overviews of all open windows, accompanying the window
-#: src/Windows/StickyNoteWindow.vala:152 src/Windows/StickyNoteWindow.vala:192
+#: src/Windows/StickyNoteWindow.vala:154 src/Windows/StickyNoteWindow.vala:194
 #, c-format
 msgid "%s - Jorts (Development)"
 msgstr ""
 
-#: src/Windows/StickyNoteWindow.vala:154 src/Windows/StickyNoteWindow.vala:194
+#: src/Windows/StickyNoteWindow.vala:156 src/Windows/StickyNoteWindow.vala:196
 #, fuzzy, c-format
 msgid "%s - Jorts"
 msgstr "Jorts"

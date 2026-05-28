@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jorts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-18 14:15+0200\n"
+"POT-Creation-Date: 2026-05-28 21:53+0200\n"
 "PO-Revision-Date: 2025-12-27 12:46+0100\n"
 "Last-Translator: Albano Battistella <albanobattistella@gmail.com>\n"
 "Language-Team: Italian <LL@li.org>\n"
@@ -18,6 +18,31 @@ msgstr "Crea una nuova nota"
 #: src/Application.vala:217
 msgid "Show preferences"
 msgstr "Mostra preferenze"
+
+#: src/Objects/ListPrefix.vala:51
+#, fuzzy
+msgid "(Disabled)"
+msgstr "Disabilitare"
+
+#: src/Objects/ListPrefix.vala:52
+#, fuzzy
+msgid " • List item"
+msgstr "Prefisso elemento dell'elenco"
+
+#: src/Objects/ListPrefix.vala:53
+#, fuzzy
+msgid " - List item"
+msgstr "Prefisso elemento dell'elenco"
+
+#: src/Objects/ListPrefix.vala:54
+#, fuzzy
+msgid " ~ List item"
+msgstr "Prefisso elemento dell'elenco"
+
+#: src/Objects/ListPrefix.vala:55
+#, fuzzy
+msgid " . List item"
+msgstr "Prefisso elemento dell'elenco"
 
 #. Translators: "Forgot title!" is optional. It never happened for me when testing, and may appear only if users tampered with the savefile
 #: src/Objects/NoteData.vala:49
@@ -338,62 +363,59 @@ msgstr ""
 msgid "Request to system sent"
 msgstr "Richiesta inviata al sistema"
 
-#: src/Views/PreferencesView.vala:51
-msgid "Reset to default"
-msgstr ""
-
 #: src/Views/PreferencesView.vala:54
 msgid "List item prefix"
 msgstr "Prefisso elemento dell'elenco"
 
 #: src/Views/PreferencesView.vala:56
-msgid "If left empty, the list button will be hidden"
+#, fuzzy
+msgid "If disabled, the toggle list button will be hidden"
 msgstr "Se lasciato vuoto, il pulsante elenco verrà nascosto"
 
-#: src/Views/PreferencesView.vala:78
+#: src/Views/PreferencesView.vala:74
 msgid "Scribble mode"
 msgstr "Modalità scarabocchio"
 
-#: src/Views/PreferencesView.vala:79
+#: src/Views/PreferencesView.vala:75
 msgid "Scribble text of unfocused notes (Ctrl+H)"
 msgstr "Scarabocchiare il testo delle note non messe a fuoco (Ctrl+H)"
 
 #. TRANSLATORS: Instead of bottom bar you can also use "Action bar" or "button bar"
-#: src/Views/PreferencesView.vala:91
+#: src/Views/PreferencesView.vala:87
 msgid "Hide bottom bar"
 msgstr "Nascondi la barra inferiore"
 
-#: src/Views/PreferencesView.vala:92
+#: src/Views/PreferencesView.vala:88
 msgid "Keyboard shortcuts will still function (Ctrl+T)"
 msgstr "Le scorciatoie da tastiera continueranno a funzionare (Ctrl+T)"
 
 #. TRANSLATORS: Button to autostart the application
-#: src/Views/PreferencesView.vala:110
+#: src/Views/PreferencesView.vala:106
 msgid "Enable"
 msgstr "Abilitare"
 
 #. TRANSLATORS: Button to remove the autostart for the application
-#: src/Views/PreferencesView.vala:121
+#: src/Views/PreferencesView.vala:117
 msgid "Disable"
 msgstr "Disabilitare"
 
-#: src/Views/PreferencesView.vala:135
+#: src/Views/PreferencesView.vala:131
 msgid "Automatically start Jorts"
 msgstr "Avvia automaticamente Jorts"
 
-#: src/Views/PreferencesView.vala:138
+#: src/Views/PreferencesView.vala:134
 msgid "Show your sticky notes when you log in"
 msgstr "Mostra i tuoi post-it quando accedi"
 
-#: src/Views/PreferencesView.vala:156
+#: src/Views/PreferencesView.vala:152
 msgid "Support us!"
 msgstr "Sosteneteci!"
 
-#: src/Views/PreferencesView.vala:162
+#: src/Views/PreferencesView.vala:158
 msgid "Close"
 msgstr "Chiudere"
 
-#: src/Views/PreferencesView.vala:165
+#: src/Views/PreferencesView.vala:161
 msgid "Close preferences"
 msgstr "Chiudere le preferenze"
 
@@ -459,12 +481,12 @@ msgid "Zoom in"
 msgstr "Ingrandisci"
 
 #. Alternate way to access preferences
-#: src/Widgets/TextView.vala:63
+#: src/Widgets/TextView.vala:81
 #, fuzzy
 msgid "Show Preferences"
 msgstr "Mostra preferenze"
 
-#: src/Widgets/TextView.vala:64
+#: src/Widgets/TextView.vala:86
 #, fuzzy
 msgid "Quit Jorts"
 msgstr " - Pantaloncini"
@@ -485,12 +507,12 @@ msgstr "Preferenze per i tuoi Jorts"
 #. TRANSLATORS: "%s" is replaced by a specific sticky note title
 #. Ex: "To remember - Jorts"
 #. The text is shown in overviews of all open windows, accompanying the window
-#: src/Windows/StickyNoteWindow.vala:152 src/Windows/StickyNoteWindow.vala:192
+#: src/Windows/StickyNoteWindow.vala:154 src/Windows/StickyNoteWindow.vala:194
 #, c-format
 msgid "%s - Jorts (Development)"
 msgstr ""
 
-#: src/Windows/StickyNoteWindow.vala:154 src/Windows/StickyNoteWindow.vala:194
+#: src/Windows/StickyNoteWindow.vala:156 src/Windows/StickyNoteWindow.vala:196
 #, fuzzy, c-format
 msgid "%s - Jorts"
 msgstr " - Pantaloncini"

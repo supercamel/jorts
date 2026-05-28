@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jorts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-18 14:15+0200\n"
+"POT-Creation-Date: 2026-05-28 21:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,10 +19,30 @@ msgstr "Créer une nouvelle note"
 msgid "Show preferences"
 msgstr "Afficher préférences"
 
+#: src/Objects/ListPrefix.vala:51
+msgid "(Disabled)"
+msgstr "(Désactivé)"
+
+#: src/Objects/ListPrefix.vala:52
+msgid " • List item"
+msgstr " • Élement de liste"
+
+#: src/Objects/ListPrefix.vala:53
+msgid " - List item"
+msgstr " - Élement de liste"
+
+#: src/Objects/ListPrefix.vala:54
+msgid " ~ List item"
+msgstr " ~ Élement de liste"
+
+#: src/Objects/ListPrefix.vala:55
+msgid " . List item"
+msgstr " . Élement de liste"
+
 #. Translators: "Forgot title!" is optional. It never happened for me when testing, and may appear only if users tampered with the savefile
 #: src/Objects/NoteData.vala:49
 msgid "Forgot title!"
-msgstr ""
+msgstr "Titre oublié!"
 
 #. TRANSLATORS: These are the names of the elementary OS colours: https://elementary.io/brand
 #. They are shown in a tooltip when the user hovers over a little colored pillbutton
@@ -139,7 +159,7 @@ msgstr "Emplacement du trésor des pirates"
 
 #: src/Utils/Random.vala:41
 msgid "To remember"
-msgstr ""
+msgstr "À se rappeller"
 
 #: src/Utils/Random.vala:42
 msgid "Dear Diary,"
@@ -158,9 +178,8 @@ msgid "Household chores"
 msgstr "Tâches ménagères"
 
 #: src/Utils/Random.vala:46
-#, fuzzy
 msgid "My cats favourite mischiefs"
-msgstr "Mes plats préférés"
+msgstr "Les bêtises préférées de mes chats"
 
 #: src/Utils/Random.vala:47
 msgid "My dogs favourite toys"
@@ -330,62 +349,58 @@ msgstr ""
 msgid "Request to system sent"
 msgstr "Envoi d'une demande au système"
 
-#: src/Views/PreferencesView.vala:51
-msgid "Reset to default"
-msgstr "Rétablir le paramètre par défaut"
-
 #: src/Views/PreferencesView.vala:54
 msgid "List item prefix"
 msgstr "Préfixe d'élement de liste"
 
 #: src/Views/PreferencesView.vala:56
-msgid "If left empty, the list button will be hidden"
-msgstr "Si vide, le bouton liste sera caché"
+msgid "If disabled, the toggle list button will be hidden"
+msgstr "Si désactivé, le bouton liste sera caché"
 
-#: src/Views/PreferencesView.vala:78
+#: src/Views/PreferencesView.vala:74
 msgid "Scribble mode"
 msgstr "Mode gribouillis"
 
-#: src/Views/PreferencesView.vala:79
+#: src/Views/PreferencesView.vala:75
 msgid "Scribble text of unfocused notes (Ctrl+H)"
 msgstr "Cacher le texte des notes en arrière-plan (Ctrl+H)"
 
 #. TRANSLATORS: Instead of bottom bar you can also use "Action bar" or "button bar"
-#: src/Views/PreferencesView.vala:91
+#: src/Views/PreferencesView.vala:87
 msgid "Hide bottom bar"
 msgstr "Masquer la barre de boutons"
 
-#: src/Views/PreferencesView.vala:92
+#: src/Views/PreferencesView.vala:88
 msgid "Keyboard shortcuts will still function (Ctrl+T)"
 msgstr "Les raccourcis clavier vont toujours fonctionner (Ctrl+T)"
 
 #. TRANSLATORS: Button to autostart the application
-#: src/Views/PreferencesView.vala:110
+#: src/Views/PreferencesView.vala:106
 msgid "Enable"
 msgstr "Activer"
 
 #. TRANSLATORS: Button to remove the autostart for the application
-#: src/Views/PreferencesView.vala:121
+#: src/Views/PreferencesView.vala:117
 msgid "Disable"
 msgstr "Désactiver"
 
-#: src/Views/PreferencesView.vala:135
+#: src/Views/PreferencesView.vala:131
 msgid "Automatically start Jorts"
 msgstr "Démarrer Jorts automatiquement"
 
-#: src/Views/PreferencesView.vala:138
+#: src/Views/PreferencesView.vala:134
 msgid "Show your sticky notes when you log in"
 msgstr "Afficher vos notes quand vous vous connectez"
 
-#: src/Views/PreferencesView.vala:156
+#: src/Views/PreferencesView.vala:152
 msgid "Support us!"
 msgstr "Nous soutenir !"
 
-#: src/Views/PreferencesView.vala:162
+#: src/Views/PreferencesView.vala:158
 msgid "Close"
 msgstr "Fermer"
 
-#: src/Views/PreferencesView.vala:165
+#: src/Views/PreferencesView.vala:161
 msgid "Close preferences"
 msgstr "Fermer les préférences"
 
@@ -451,11 +466,11 @@ msgid "Zoom in"
 msgstr "Zoom avant"
 
 #. Alternate way to access preferences
-#: src/Widgets/TextView.vala:63
+#: src/Widgets/TextView.vala:81
 msgid "Show Preferences"
 msgstr "Afficher préférences"
 
-#: src/Widgets/TextView.vala:64
+#: src/Widgets/TextView.vala:86
 msgid "Quit Jorts"
 msgstr "Quitter Jorts"
 
@@ -474,15 +489,18 @@ msgstr "Préférences pour vos Jorts"
 #. TRANSLATORS: "%s" is replaced by a specific sticky note title
 #. Ex: "To remember - Jorts"
 #. The text is shown in overviews of all open windows, accompanying the window
-#: src/Windows/StickyNoteWindow.vala:152 src/Windows/StickyNoteWindow.vala:192
+#: src/Windows/StickyNoteWindow.vala:154 src/Windows/StickyNoteWindow.vala:194
 #, c-format
 msgid "%s - Jorts (Development)"
 msgstr "%s - Jorts (Développement)"
 
-#: src/Windows/StickyNoteWindow.vala:154 src/Windows/StickyNoteWindow.vala:194
+#: src/Windows/StickyNoteWindow.vala:156 src/Windows/StickyNoteWindow.vala:196
 #, c-format
 msgid "%s - Jorts"
 msgstr "%s - Jorts"
+
+#~ msgid "Reset to default"
+#~ msgstr "Rétablir le paramètre par défaut"
 
 #~ msgid "To not forget, ever"
 #~ msgstr "Pour ne jamais oublier"
