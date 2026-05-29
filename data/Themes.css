@@ -164,7 +164,7 @@ window.themed titlebar,
 window.themed titlebar image,
 window.themed .themedbutton > button > box > image,
 window.themed .themedbutton > image,
-window {
+window.themed {
     color: var(--accent_color_900);
 }
 
