@@ -127,7 +127,7 @@ window undershoot.top {
     background:
         linear-gradient(
             var(--accent_color_100) 0%,
-            alpha(var(--accent_color_100, 0) 50%)
+            alpha(var(--accent_color_100), 0) 50%
         );
 }
 
