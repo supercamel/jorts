@@ -113,6 +113,7 @@ public class Jorts.StickyNoteWindow : Gtk.ApplicationWindow {
         // Use the color theme of this sticky note when focused
         this.notify["is-active"].connect (color_controller.on_focus_changed);
 
+
         // Respect animation settings for showing ui elements
         if (Application.gtk_settings.gtk_enable_animations && (!Application.gsettings.get_boolean (KEY_HIDEBAR))) {
             show.connect_after (delayed_show);

@@ -12,60 +12,40 @@
 */
 public class Jorts.ScribblyController : Object {
 
+    private const string STYLE_SCRIBBLED = "scribbled";
     private weak Jorts.StickyNoteWindow window;
 
     private bool _scribble;
     public bool scribble {
         get { return _scribble;}
-        set { scribble_follow_focus (value);}
+        set { scribbly_set (value);}
     }
 
     public ScribblyController (Jorts.StickyNoteWindow window) {
         this.window = window;
 
+
+        // Gtk bug: Backdrop is not set when a window is first created and shown. Only after it gets focused at least once
+        // Report: https://gitlab.gnome.org/GNOME/gtk/-/work_items/8211
+        window.set_state_flags (Gtk.StateFlags.BACKDROP, false);
+
+
         Application.gsettings.bind (
-            "scribbly-mode-active",
+            KEY_SCRIBBLY,
             this, "scribble",
             SettingsBindFlags.DEFAULT);
-    }
-
-    /**
-    * Connect-disconnect the whole manage text being scribbled
-    */
-    private void scribble_follow_focus (bool is_activated) {
-        debug ("Scribbly mode changed!");
-
-        if (is_activated) {
-            window.notify["is-active"].connect (focus_scribble_unscribble);
-            scribbly_set (!window.is_active);
-
-        } else {
-            window.notify["is-active"].disconnect (focus_scribble_unscribble);
-            scribbly_set (false);
-        }
-
-        _scribble = is_activated;
-    }
-
-    /**
-    * Handler connected only when scribbly mode is active
-    */
-    private void focus_scribble_unscribble () {
-        debug ("Scribbly mode changed!");
-        scribbly_set (!window.is_active);
     }
 
     /**
     * Wrapper to abstract setting/removing CSS as a bool
     */
     private void scribbly_set (bool if_scribbly) {
+        debug ("Scribbly mode changed!");
         if (if_scribbly) {
-            window.add_css_class ("scribbly");
-
-        } else {
-            if ("scribbly" in window.css_classes) {
-                window.remove_css_class ("scribbly");
-            }
+            window.add_css_class (STYLE_SCRIBBLED);
+            return;
         }
+
+        window.remove_css_class (STYLE_SCRIBBLED);
     }
 }
