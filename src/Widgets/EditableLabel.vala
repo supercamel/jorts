@@ -10,6 +10,7 @@
 */
 public class Jorts.EditableLabel : Granite.Bin {
 
+    private const string STYLE_MONOSPACE = "monospace";
     private Gtk.EditableLabel editablelabel;
     public signal void changed ();
 
@@ -24,7 +25,7 @@ public class Jorts.EditableLabel : Granite.Bin {
     }
 
     public bool monospace {
-        get {return "monospace" in this.css_classes;}
+        get {return STYLE_MONOSPACE in this.css_classes;}
         set {mono_set (value);}
     }
 
@@ -51,9 +52,9 @@ public class Jorts.EditableLabel : Granite.Bin {
 
     private void mono_set (bool if_mono) {
         if (if_mono) {
-            this.add_css_class ("monospace");
+            this.add_css_class (STYLE_MONOSPACE);
             return;
         }
-        remove_css_class ("monospace");
+        remove_css_class (STYLE_MONOSPACE);
     }
 }
