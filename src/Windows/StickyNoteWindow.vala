@@ -201,7 +201,7 @@ public class Jorts.StickyNoteWindow : Gtk.ApplicationWindow {
     }
 
     public void has_changed () {
-        application.activate_action (NoteManager.ACTION_SAVE, null);
+        application.activate_action (Application.ACTION_SAVE, null);
     }
     private void action_delete () {((Jorts.Application)this.application).note_manager.delete_note (this); this.destroy ();}
 }

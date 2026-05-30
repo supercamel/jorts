@@ -19,20 +19,6 @@ public class Jorts.NoteManager : Object {
     public Gee.ArrayList<StickyNoteWindow> open_notes;
     public Jorts.Storage storage;
 
-    public SimpleActionGroup actions { get; construct; }
-    public const string ACTION_PREFIX = "app.";
-    public const string ACTION_NEW = "action_new";
-    public const string ACTION_SAVE = "action_save";
-    public const string ACTION_RESTORE_LAST = "action_restore_last";
-
-    public static Gee.MultiMap<string, string> action_accelerators;
-
-    public const GLib.ActionEntry[] ACTION_ENTRIES = {
-        {ACTION_NEW, action_new},
-        {ACTION_SAVE, save_all},
-        {ACTION_RESTORE_LAST, action_restore_last}
-    };
-
     public NoteManager (Jorts.Application app) {
         this.application = app;
     }
@@ -41,17 +27,24 @@ public class Jorts.NoteManager : Object {
         open_notes = new Gee.ArrayList<StickyNoteWindow> ();
         storage = new Jorts.Storage ();
 
-        actions = new SimpleActionGroup ();
-        actions.add_action_entries (ACTION_ENTRIES, this);
+        //action_group = new SimpleActionGroup ();
+        //action_group.add_action_entries (ACTION_ENTRIES, this);
+
+
+/*          var action_new_note = new SimpleAction (ACTION_NEW, null);
+        action_new_note.activate.connect (new_note);
+        action_group.add_action (action_new_note);
+
+        var action_save = new SimpleAction (ACTION_SAVE, null);
+        action_save.activate.connect (save_all);
+        action_group.add_action (action_save);
+
+        action_restore = new SimpleAction (ACTION_RESTORE_LAST, null);
+        action_restore.set_enabled (false);
+        action_group.add_action (action_restore);  */
 
         // Translation view
         unowned var app = ((Gtk.Application) GLib.Application.get_default ());
-        app.set_accels_for_action (ACTION_PREFIX + ACTION_NEW, {"<Control>N"});
-        app.set_accels_for_action (ACTION_PREFIX + ACTION_SAVE, {"<Control>S"});
-        app.set_accels_for_action (ACTION_PREFIX + ACTION_RESTORE_LAST, {"<Control>R"});
-
-        var action = (SimpleAction)actions.lookup_action (ACTION_PREFIX + ACTION_RESTORE_LAST);
-        action.set_enabled (false);
 
     }
 
@@ -122,8 +115,10 @@ public class Jorts.NoteManager : Object {
         debug ("Removing a note…");
 
         last_deleted = note.packaged ();
-        var action = (SimpleAction)actions.lookup_action (ACTION_PREFIX + ACTION_RESTORE_LAST);
-        action.set_enabled (true);
+
+
+        var action_restore = application.lookup_action (Application.ACTION_RESTORE_LAST);
+        ((SimpleAction)action_restore).set_enabled (true);
 
         open_notes.remove (note);
         application.remove_window ((Gtk.Window)note);
@@ -189,22 +184,23 @@ public class Jorts.NoteManager : Object {
         }
     }
 
-    public void action_new () {
+    public void new_note () {
         debug ("New Note");
         create_note ();
     }
 
-    public void action_restore_last () {
+    public void restore_last_deleted () {
         debug ("Restoring last deleted");
 
         if (last_deleted == null) {
             return;
         }
-        
-        create_note (last_deleted);
-        var action = (SimpleAction)actions.lookup_action (ACTION_PREFIX + ACTION_RESTORE_LAST);
-        action.set_enabled (false);
-        last_deleted = null;
 
+        create_note (last_deleted);
+
+        var action_restore = application.lookup_action (Application.ACTION_RESTORE_LAST);
+        ((SimpleAction)action_restore).set_enabled (false);
+
+        last_deleted = null;
     }
 }

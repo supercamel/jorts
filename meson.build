@@ -14,7 +14,6 @@ correct_app_path = '/io/github/elly_code/' + app_name
 legacy_app_id = 'io.github.ellie_commons.' +  app_name
 legacy_app_path = '/io/github/ellie_commons/' + app_name
 
-
 vala_flags = []
 profile = get_option('profile')
 
@@ -52,6 +51,12 @@ endif
 #================================
 gnome = import('gnome')
 i18n = import('i18n')
+
+# WEIRD: Some spacing gets funky on flathub builds
+flathub = get_option('flathub')
+if flathub
+    vala_flags += ['--define', 'FLATHUB']
+endif
 
 # Windows needs icons, special arguments, and skip libportal
 windows_build = get_option('windows_build')

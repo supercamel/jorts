@@ -42,7 +42,7 @@ sources = files (
     'Widgets' / 'PopoverWidgets' / 'ColorBox.vala',
     'Widgets' / 'PopoverWidgets' / 'MonospaceBox.vala',
     'Widgets' / 'PopoverWidgets' / 'ZoomBox.vala',
-    'Widgets' / 'PreferencesWidgets' / 'SettingsSwitch.vala',
+    'Widgets' / 'PreferencesWidgets' / 'SettingsBox.vala',
     'Widgets' / 'Popover.vala',
 
     'Views' / 'PreferencesView.vala',

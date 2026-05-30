@@ -56,7 +56,10 @@ public class Jorts.Application : Gtk.Application {
     public const string ACTION_TOGGLE_SCRIBBLY = "action_toggle_scribbly";
     public const string ACTION_TOGGLE_ACTIONBAR = "action_toggle_actionbar";
     public const string ACTION_SHOW_PREFERENCES = "action_show_preferences";
+
+    public const string ACTION_NEW = "action_new";
     public const string ACTION_SAVE = "action_save";
+    public const string ACTION_RESTORE_LAST = "action_restore_last";
 
     public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
@@ -65,6 +68,9 @@ public class Jorts.Application : Gtk.Application {
         { ACTION_TOGGLE_SCRIBBLY, action_toggle_scribbly},
         { ACTION_TOGGLE_ACTIONBAR, action_toggle_actionbar},
         { ACTION_SHOW_PREFERENCES, action_show_preferences},
+        { ACTION_NEW, nm_new_note},
+        { ACTION_SAVE, nm_save_all},
+        { ACTION_RESTORE_LAST, nm_restore_last_deleted}
     };
 
     public Application () {
@@ -94,13 +100,18 @@ public class Jorts.Application : Gtk.Application {
         Granite.init ();
 
         add_action_entries (ACTION_ENTRIES, this);
-        set_accels_for_action ("app.action_quit", {"<Control>Q"});
-        set_accels_for_action ("app.action_toggle_actionbar", {"<Control>T"});
-        set_accels_for_action ("app.action_show_preferences", {"<Control>P"});
-        set_accels_for_action ("app.action_toggle_scribbly", {"<Control>H"});
+        set_accels_for_action (ACTION_PREFIX + ACTION_QUIT, {"<Control>Q"});
+        set_accels_for_action (ACTION_PREFIX + ACTION_SHOW_PREFERENCES, {"<Control>P"});
+        set_accels_for_action (ACTION_PREFIX + ACTION_TOGGLE_ACTIONBAR, {"<Control>T"});
+        set_accels_for_action (ACTION_PREFIX + ACTION_TOGGLE_SCRIBBLY, {"<Control>H"});
 
-        note_manager = new Jorts.NoteManager (this);        
-        add_action_entries (NoteManager.ACTION_ENTRIES, note_manager);
+        set_accels_for_action (ACTION_PREFIX + ACTION_NEW, {"<Control>N"});
+        set_accels_for_action (ACTION_PREFIX + ACTION_SAVE, {"<Control>S"});
+        set_accels_for_action (ACTION_PREFIX + ACTION_RESTORE_LAST, {"<Control>R"});
+
+        note_manager = new Jorts.NoteManager (this);
+        var action_restore = lookup_action (Application.ACTION_RESTORE_LAST);
+        ((SimpleAction)action_restore).set_enabled (false);
 
         // Force the eOS icon theme, and set the blueberry as fallback, if for some reason it fails for individual notes
         var granite_settings = Granite.Settings.get_default ();
@@ -132,7 +143,6 @@ Please wait while the app remembers all the things...
         /* Quit if all sticky notes are closed and preferences arent shown */
         window_removed.connect (check_if_quit);
 
-
         // build all the stylesheets
         var app_provider = new Gtk.CssProvider ();
         app_provider.load_from_resource (APP_PATH + "/Application.css");
@@ -153,7 +163,7 @@ Please wait while the app remembers all the things...
 
     // Clicked: Either show all windows, or rebuild from storage
     protected override void activate () {
-        debug ("[JORTS] Jorts, activate!");
+        debug ("Jorts, activate!");
 
         // Test Lang
         //GLib.Environment.set_variable ("LANGUAGE", "pt_br", true);
@@ -165,6 +175,9 @@ Please wait while the app remembers all the things...
             }
         } else {
             note_manager.init ();
+#if DEVEL
+            action_show_preferences ();
+#endif
         }
 
         if (new_note) {note_manager.create_note (); new_note = false;}
@@ -197,6 +210,18 @@ Please wait while the app remembers all the things...
         debug ("Toggling actionbar");
         var current = Application.gsettings.get_boolean (KEY_HIDEBAR);
         gsettings.set_boolean (KEY_HIDEBAR, !current);
+    }
+
+    private void nm_new_note () {
+        note_manager.new_note ();
+    }
+
+    private void nm_save_all () {
+        note_manager.save_all ();
+    }
+
+    private void nm_restore_last_deleted () {
+        note_manager.restore_last_deleted ();
     }
 
     // checked upon window closing to make sure we do not linger in the background
