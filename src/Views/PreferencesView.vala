@@ -62,9 +62,8 @@
             /*              scribbly Toggle                  */
             /*************************************************/
 
-            debug ("Built UI. Lets do connects and binds");
-
             var scribbly_toggle = new Gtk.Switch ();
+
             Application.gsettings.bind (KEY_SCRIBBLY,
                 scribbly_toggle, "active",
                 GLib.SettingsBindFlags.DEFAULT);
@@ -81,6 +80,7 @@
             /*               hidebar Toggle                  */
             /*************************************************/
             var hidebar_toggle = new Gtk.Switch ();
+
             Application.gsettings.bind (KEY_HIDEBAR,
                 hidebar_toggle, "active",
                 GLib.SettingsBindFlags.DEFAULT);
@@ -119,39 +119,17 @@
 
 // Windows do not have libportal, so we have to skip the autostart options
 #if !WINDOWS
-            var both_buttons = new Gtk.Box (Gtk.Orientation.HORIZONTAL, SPACING_STANDARD) {
-                halign = Gtk.Align.FILL
-            };
+            var autostart_toggle = new Gtk.Switch ();
+            var libportal_autostart = new Jorts.Autostart (false);
 
-            //TRANSLATORS: Button to autostart the application
-            var set_autostart = new Gtk.Button () {
-                label = _("Enable"),
-                valign = Gtk.Align.CENTER
-            };
+            Application.gsettings.bind (KEY_AUTOSTART,
+                autostart_toggle, "active",
+                GLib.SettingsBindFlags.DEFAULT);
 
-            set_autostart.clicked.connect (() => {
-                Jorts.Utils.autostart_set ();
-                toast.send_notification ();
-            });
-
-            //TRANSLATORS: Button to remove the autostart for the application
-            var remove_autostart = new Gtk.Button () {
-                label = _("Disable"),
-                valign = Gtk.Align.CENTER
-            };
-
-            remove_autostart.clicked.connect (() => {
-                Jorts.Utils.autostart_remove ();
-                toast.send_notification ();
-            });
-
-            both_buttons.append (set_autostart);
-            both_buttons.append (remove_autostart);
-
-            var autostart_box = new SettingsBox (
+            var autostart_box = new Jorts.SettingsBox (
                 _("Automatically start Jorts"),
                 _("Show your sticky notes when you log in"),
-                both_buttons);
+                autostart_toggle);
 
             settingsbox.append (autostart_box);
 #endif
