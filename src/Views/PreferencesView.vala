@@ -141,7 +141,7 @@
 
             var autostart_box = new Jorts.SettingsBox (
                 _("Show notes on log in"),
-                _("Note: This can be out of sync with system settings"),
+                _("May be out of sync with system settings in some cases"),
                 autostart_toggle);
 
             settingsbox.append (autostart_box);
