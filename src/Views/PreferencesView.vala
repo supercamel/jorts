@@ -10,6 +10,11 @@
     private Granite.Toast toast;
     public Gtk.Button close_button;
 
+#if !WINDOWS
+    Gtk.Switch autostart_toggle;
+    Jorts.Autostart autostart;
+#endif
+
     construct {
         var prefview = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = SPACING_DOUBLE,
@@ -119,12 +124,14 @@
 
 // Windows do not have libportal, so we have to skip the autostart options
 #if !WINDOWS
-            var autostart_toggle = new Gtk.Switch ();
-            var libportal_autostart = new Jorts.Autostart (false);
+            autostart_toggle = new Gtk.Switch ();
 
             Application.gsettings.bind (KEY_AUTOSTART,
                 autostart_toggle, "active",
                 GLib.SettingsBindFlags.DEFAULT);
+
+            autostart = new Jorts.Autostart ();
+            autostart_toggle.notify["state"].connect (handle_toggle_autostart);
 
             var autostart_box = new Jorts.SettingsBox (
                 _("Automatically start Jorts"),
@@ -133,6 +140,7 @@
 
             settingsbox.append (autostart_box);
 #endif
+
         /*************************************************/
         // Bar at the bottom
         var actionbar = new Gtk.CenterBox () {
@@ -161,4 +169,15 @@
         prefview.append (settingsbox);
         prefview.append (actionbar);
     }
+
+#if !WINDOWS
+    private void handle_toggle_autostart () {
+        if (autostart_toggle.active) {
+            autostart.request_set.begin ();
+            return;
+        }
+
+        autostart.request_remove.begin ();
+    }
+#endif
 }
