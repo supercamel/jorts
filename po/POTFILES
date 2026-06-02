@@ -4,7 +4,7 @@ src/Application.vala
 src/Objects/ListPrefix.vala
 src/Objects/NoteData.vala
 src/Objects/Themes.vala
-src/Utils/Libportal.vala
+src/Utils/Autostart.vala
 src/Utils/Random.vala
 src/Views/NoteView.vala
 src/Views/PreferencesView.vala

@@ -50,6 +50,7 @@ namespace Jorts {
     const string KEY_SCRIBBLY           = "scribbly-mode-active";
     const string KEY_HIDEBAR            = "hide-bar";
     const string KEY_LIST               = "list-prefix";
+    const string KEY_AUTOSTART          = "autostart";
 
     // Used by random_emote () for the emote selection menu
     const string[] EMOTES = {

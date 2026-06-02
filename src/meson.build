@@ -71,7 +71,7 @@ if windows_build
 else
     dependencies += dependency('gio-unix-2.0')
     dependencies += dependency('libportal')
-    sources += files('Utils' / 'Libportal.vala')
+    sources += files('Utils' / 'Autostart.vala')
 
 endif
 

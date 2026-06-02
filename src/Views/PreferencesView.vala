@@ -10,6 +10,11 @@
     private Granite.Toast toast;
     public Gtk.Button close_button;
 
+#if !WINDOWS
+    Gtk.Switch autostart_toggle;
+    Jorts.Autostart autostart;
+#endif
+
     construct {
         var prefview = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = SPACING_DOUBLE,
@@ -24,7 +29,7 @@
             child = prefview
         };
 
-        toast = new Granite.Toast (_("Request to system sent"));
+        toast = new Granite.Toast ("");
         overlay.add_overlay (toast);
         child = overlay;
 
@@ -52,7 +57,7 @@
 
             var lists_box = new SettingsBox (
                 _("List item prefix"),
-                _("If disabled, the toggle list button will be hidden"),
+                null, //_("If disabled, the toggle list button will be hidden"),
                 list_dropdown);
 
             settingsbox.append (lists_box);
@@ -62,16 +67,15 @@
             /*              scribbly Toggle                  */
             /*************************************************/
 
-            debug ("Built UI. Lets do connects and binds");
-
             var scribbly_toggle = new Gtk.Switch ();
+
             Application.gsettings.bind (KEY_SCRIBBLY,
                 scribbly_toggle, "active",
                 GLib.SettingsBindFlags.DEFAULT);
 
-            var scribbly_box = new Jorts.SettingsBox (_
-                ("Scribble mode"),
-                _("Scribble text of unfocused notes (Ctrl+H)"),
+            var scribbly_box = new Jorts.SettingsBox (
+                _("Scribble unfocused notes (Ctrl+H)"),
+                null, //_("You can also use the Ctrl+H shortcut"),
                 scribbly_toggle);
 
             settingsbox.append (scribbly_box);
@@ -81,14 +85,15 @@
             /*               hidebar Toggle                  */
             /*************************************************/
             var hidebar_toggle = new Gtk.Switch ();
+
             Application.gsettings.bind (KEY_HIDEBAR,
                 hidebar_toggle, "active",
                 GLib.SettingsBindFlags.DEFAULT);
 
             var hidebar_box = new Jorts.SettingsBox (
                 //TRANSLATORS: Instead of bottom bar you can also use "Action bar" or "button bar"
-                _("Hide bottom bar"),
-                _("Keyboard shortcuts will still function (Ctrl+T)"),
+                _("Hide bottom bar (Ctrl+T)"),
+                null, //_("You can also use the Ctrl+T shortcut"),
                 hidebar_toggle);
 
             settingsbox.append (hidebar_box);
@@ -101,16 +106,21 @@
 
             //TRANSLATORS: Button to restore sticky notes the application
             var restore_button = new Gtk.Button () {
-                label = _("Restore"),
-                action_name = Application.ACTION_PREFIX + Application.ACTION_RESTORE_LAST
+                label = _("Restore note"),
+                tooltip_markup = Granite.markup_accel_tooltip (
+                    {"<Ctrl>R"},
+                    _("Restore the last deleted sticky note")
+                ),
+                action_name = Application.ACTION_PREFIX + Application.ACTION_RESTORE_LAST,
+                width_request = 96,
             };
 
-            var restore_box = new SettingsBox (
+           /*   var restore_box = new SettingsBox (
                 _("Restore last deleted note"),
                 _("Restore the last deleted sticky note (Ctrl+R)"),
-                restore_button);
+                restore_button);  */
 
-            settingsbox.append (restore_box);
+            //settingsbox.append (restore_box);
 
 
             /****************************************************/
@@ -119,47 +129,29 @@
 
 // Windows do not have libportal, so we have to skip the autostart options
 #if !WINDOWS
-            var both_buttons = new Gtk.Box (Gtk.Orientation.HORIZONTAL, SPACING_STANDARD) {
-                halign = Gtk.Align.FILL
-            };
+            autostart_toggle = new Gtk.Switch ();
 
-            //TRANSLATORS: Button to autostart the application
-            var set_autostart = new Gtk.Button () {
-                label = _("Enable"),
-                valign = Gtk.Align.CENTER
-            };
+            Application.gsettings.bind (KEY_AUTOSTART,
+                autostart_toggle, "active",
+                GLib.SettingsBindFlags.DEFAULT);
 
-            set_autostart.clicked.connect (() => {
-                Jorts.Utils.autostart_set ();
-                toast.send_notification ();
-            });
+            autostart = new Jorts.Autostart ();
+            autostart_toggle.notify["state"].connect (handle_toggle_autostart);
+            //autostart.fail.connect (toast.)
 
-            //TRANSLATORS: Button to remove the autostart for the application
-            var remove_autostart = new Gtk.Button () {
-                label = _("Disable"),
-                valign = Gtk.Align.CENTER
-            };
-
-            remove_autostart.clicked.connect (() => {
-                Jorts.Utils.autostart_remove ();
-                toast.send_notification ();
-            });
-
-            both_buttons.append (set_autostart);
-            both_buttons.append (remove_autostart);
-
-            var autostart_box = new SettingsBox (
-                _("Automatically start Jorts"),
-                _("Show your sticky notes when you log in"),
-                both_buttons);
+            var autostart_box = new Jorts.SettingsBox (
+                _("Show notes on log in"),
+                _("May be out of sync with system settings in some cases"),
+                autostart_toggle);
 
             settingsbox.append (autostart_box);
 #endif
+
         /*************************************************/
         // Bar at the bottom
         var actionbar = new Gtk.CenterBox () {
             valign = Gtk.Align.END,
-            margin_top = SPACING_TRIPLE,
+            margin_top = SPACING_TRIPLE + SPACING_STANDARD,
             hexpand = true,
             vexpand = false
         };
@@ -170,7 +162,10 @@
             _("Support us!")
         );
 
-        actionbar.end_widget = new Gtk.Button () {
+        var right_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, Jorts.SPACING_DOUBLE);
+        actionbar.end_widget = right_box;
+
+        var close = new Gtk.Button () {
             action_name = "window.close",
             width_request = 96,
             label = _("Close"),
@@ -179,8 +174,21 @@
                 _("Close preferences")
             )
         };
+        right_box.append (restore_button);
+        right_box.append (close);
 
         prefview.append (settingsbox);
         prefview.append (actionbar);
     }
+
+#if !WINDOWS
+    private void handle_toggle_autostart () {
+        if (autostart_toggle.active) {
+            autostart.request_set.begin ();
+            return;
+        }
+
+        autostart.request_remove.begin ();
+    }
+#endif
 }

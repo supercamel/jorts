@@ -24,5 +24,10 @@
       		<summary>List item prefix</summary>
       		<description>The string to use at the start of a list item</description>
     	</key>
+		<key name="autostart" type="b">
+			<default>false</default>
+			<summary>Autostart the app</summary>
+			<description>Cannot read systems flag, so may desync if user does shit</description>
+		</key>
 	</schema>
 </schemalist>
