@@ -74,7 +74,7 @@
             <image>https://raw.githubusercontent.com/elly-code/@APP_NAME@/@APP_VERSION@/data/screenshots/default.png</image>
         </screenshot>
         <screenshot>
-            <caption>Streaming? Worried of someone looking above your shoulder? Try the scribbly Mode!</caption>
+            <caption>Streaming? Worried of someone looking above your shoulder? Try the Scribbly Mode!</caption>
             <image>https://raw.githubusercontent.com/elly-code/@APP_NAME@/@APP_VERSION@/data/screenshots/scribbly.png</image>
         </screenshot>
         <screenshot>
@@ -99,6 +99,8 @@
                     <li>Lovely Pride variant thanks to @wpkelso!</li>
                     <li>Added indent for lists with help from @MysterieCatDev!</li>
                     <li>Added feature to restore last deleted note</li>
+                    <li>Refreshed preference dialog appearance</li>
+                    <li>Issue with appcenter and flathub build differences fixed thanks to @ryonakano!</li>
                     <li>Added Danish translation thanks to @pracedru!</li>
                     <li>Added Croatian translation thanks to @milotype!</li>
                     <li>Updated Spanish translation thanks to Eli!</li>

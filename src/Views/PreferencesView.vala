@@ -29,7 +29,7 @@
             child = prefview
         };
 
-        toast = new Granite.Toast (_("Request to system sent"));
+        toast = new Granite.Toast ("");
         overlay.add_overlay (toast);
         child = overlay;
 
@@ -74,8 +74,8 @@
                 GLib.SettingsBindFlags.DEFAULT);
 
             var scribbly_box = new Jorts.SettingsBox (
-                _("Scribble content of unfocused notes"),
-                _("You can also use the Ctrl+H shortcut"),
+                _("Scribble unfocused notes (Ctrl+H)"),
+                null, //_("You can also use the Ctrl+H shortcut"),
                 scribbly_toggle);
 
             settingsbox.append (scribbly_box);
@@ -92,8 +92,8 @@
 
             var hidebar_box = new Jorts.SettingsBox (
                 //TRANSLATORS: Instead of bottom bar you can also use "Action bar" or "button bar"
-                _("Hide bottom bar"),
-                _("You can also use the Ctrl+T shortcut"),
+                _("Hide bottom bar (Ctrl+T)"),
+                null, //_("You can also use the Ctrl+T shortcut"),
                 hidebar_toggle);
 
             settingsbox.append (hidebar_box);
