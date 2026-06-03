@@ -94,11 +94,14 @@ gnome.post_install(
   update_desktop_database: true
   )
 
-if profile == 'development'
+if development
 message('''
-    
+
+----------------------------------------
 You now have a development version installed.
 Here be dragons.
+Tread carefully.
+----------------------------------------
 
 ''')
 endif
