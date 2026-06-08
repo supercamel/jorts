@@ -5,10 +5,7 @@
 !.editorconfig
 ~*
 *~
-build
 builddir
-.flatpak-builder
-.potrans
+build
 repo
-.vscode
 deploy
