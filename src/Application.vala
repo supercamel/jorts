@@ -90,6 +90,11 @@ public class Jorts.Application : Gtk.Application {
         Intl.bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
         Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         Intl.textdomain (GETTEXT_PACKAGE);
+
+#if DEVEL
+        GLib.Environment.set_variable ("LANGUAGE", "C", true);
+        GLib.Environment.set_variable ("GTK_DEBUG", "interactive", true);
+#endif
     }
 
     /*************************************************/
