@@ -1,0 +1,10 @@
+.github
+.vscode
+builddir
+po
+data
+docs
+repo
+windows
+Objects
+Constants.vala

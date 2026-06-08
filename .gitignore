@@ -1,7 +1,8 @@
 
 .*
 !.gitignore
-.editorconfig
+!.valalintignore
+!.editorconfig
 ~*
 *~
 build
