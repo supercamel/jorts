@@ -1,10 +1,16 @@
+# Build and tools
 .github
 .vscode
 builddir
+.flatpak-builder
+
+# Companion files
 po
 data
 docs
 repo
 windows
+
+# Exceptions
 Objects
 Constants.vala
