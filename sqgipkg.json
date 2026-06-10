@@ -5,6 +5,7 @@
     "linux": "build-linux-x86_64/src/io.github.elly_code.jorts",
     "windows": "build-windows-x86_64/src/io.github.elly_code.jorts.exe"
   },
+  "gtk_icon_theme": "Adwaita",
   "linux": {
     "arches": [
       {
