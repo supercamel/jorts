@@ -5,7 +5,7 @@
  *                          2025-2026 Stella & Charlie (teamcons.carrd.co)
  */
 
- public class Jorts.PreferencesView : Granite.Bin {
+ public class Jorts.PreferencesView : Jorts.Bin {
 
     private Granite.Toast toast;
     public Gtk.Button close_button;

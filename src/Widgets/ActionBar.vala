@@ -6,10 +6,10 @@
  */
 
 /**
-* We use Granite.Bin to subclass ActionBar.
+ * We use Jorts.Bin to subclass ActionBar.
 * Everything is kept there but most widgets are public
 */
- public class Jorts.ActionBar : Granite.Bin {
+ public class Jorts.ActionBar : Jorts.Bin {
 
     public Gtk.ActionBar actionbar;
     public Gtk.Button list_button;

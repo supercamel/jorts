@@ -1,0 +1,164 @@
+{
+  "name": "Jorts",
+  "entry": {
+    "type": "native",
+    "linux": "build-linux-x86_64/src/io.github.elly_code.jorts",
+    "windows": "build-windows-x86_64/src/io.github.elly_code.jorts.exe"
+  },
+  "linux": {
+    "arches": [
+      {
+        "arch": "x86_64",
+        "build_dir": "build-linux-x86_64",
+        "entry_linux": "build-linux-x86_64/src/io.github.elly_code.jorts",
+        "deb": {
+          "download": true,
+          "packages": [
+            "libgtk-4-dev",
+            "gir1.2-gtk-4.0",
+            "libgranite-7-dev",
+            "gir1.2-granite-7.0",
+            "libgee-0.8-dev",
+            "libglib2.0-dev",
+            "libjson-glib-dev",
+            "libportal-dev",
+            "gobject-introspection",
+            "libgirepository1.0-dev",
+            "adwaita-icon-theme",
+            "hicolor-icon-theme",
+            "librsvg2-common",
+            "shared-mime-info"
+          ]
+        },
+        "inherit_native_projects": false,
+        "native_projects": [
+          {
+            "name": "jorts",
+            "dir": ".",
+            "build": [
+              "meson setup \"$SQGI_LINUX_BUILD_DIR\" --wipe --prefix /usr --buildtype=release -Ddevelopment=false -Dlegacy-rdnn=false -Dicon-variant=default ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"} || meson setup \"$SQGI_LINUX_BUILD_DIR\" --prefix /usr --buildtype=release -Ddevelopment=false -Dlegacy-rdnn=false -Dicon-variant=default ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"}",
+              "meson compile -C \"$SQGI_LINUX_BUILD_DIR\""
+            ],
+            "files": [
+              "build-linux-x86_64/data/io.github.elly_code.jorts.gschema.xml=usr/share/glib-2.0/schemas/io.github.elly_code.jorts.gschema.xml",
+              "build-linux-x86_64/data/io.github.elly_code.jorts.desktop=usr/share/applications/io.github.elly_code.jorts.desktop",
+              "build-linux-x86_64/data/io.github.elly_code.jorts.metainfo.xml=usr/share/metainfo/io.github.elly_code.jorts.metainfo.xml",
+              "data/fonts/RedactedScript-Regular.ttf=usr/share/fonts/RedactedScript-Regular.ttf",
+              "data/icons/default/hicolor/16.png=usr/share/icons/hicolor/16x16/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor/24.png=usr/share/icons/hicolor/24x24/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor/32.png=usr/share/icons/hicolor/32x32/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor/48.png=usr/share/icons/hicolor/48x48/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor/64.png=usr/share/icons/hicolor/64x64/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor/128.png=usr/share/icons/hicolor/128x128/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor@2/16@2.png=usr/share/icons/hicolor/16x16@2/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor@2/24@2.png=usr/share/icons/hicolor/24x24@2/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor@2/32@2.png=usr/share/icons/hicolor/32x32@2/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor@2/48@2.png=usr/share/icons/hicolor/48x48@2/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor@2/64@2.png=usr/share/icons/hicolor/64x64@2/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor@2/128@2.png=usr/share/icons/hicolor/128x128@2/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/scalable.svg=usr/share/icons/hicolor/scalable/apps/io.github.elly_code.jorts.svg"
+            ]
+          }
+        ]
+      },
+      {
+        "arch": "aarch64",
+        "build_dir": "build-linux-aarch64",
+        "entry_linux": "build-linux-aarch64/src/io.github.elly_code.jorts",
+        "deb": {
+          "download": true,
+          "packages": [
+            "libgtk-4-dev",
+            "gir1.2-gtk-4.0",
+            "libgranite-7-dev",
+            "gir1.2-granite-7.0",
+            "libgee-0.8-dev",
+            "libglib2.0-dev",
+            "libjson-glib-dev",
+            "libportal-dev",
+            "gobject-introspection",
+            "libgirepository1.0-dev",
+            "adwaita-icon-theme",
+            "hicolor-icon-theme",
+            "librsvg2-common",
+            "shared-mime-info"
+          ]
+        },
+        "inherit_native_projects": false,
+        "native_projects": [
+          {
+            "name": "jorts",
+            "dir": ".",
+            "build": [
+              "meson setup \"$SQGI_LINUX_BUILD_DIR\" --wipe --prefix /usr --buildtype=release -Ddevelopment=false -Dlegacy-rdnn=false -Dicon-variant=default ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"} || meson setup \"$SQGI_LINUX_BUILD_DIR\" --prefix /usr --buildtype=release -Ddevelopment=false -Dlegacy-rdnn=false -Dicon-variant=default ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"}",
+              "meson compile -C \"$SQGI_LINUX_BUILD_DIR\""
+            ],
+            "files": [
+              "build-linux-aarch64/data/io.github.elly_code.jorts.gschema.xml=usr/share/glib-2.0/schemas/io.github.elly_code.jorts.gschema.xml",
+              "build-linux-aarch64/data/io.github.elly_code.jorts.desktop=usr/share/applications/io.github.elly_code.jorts.desktop",
+              "build-linux-aarch64/data/io.github.elly_code.jorts.metainfo.xml=usr/share/metainfo/io.github.elly_code.jorts.metainfo.xml",
+              "data/fonts/RedactedScript-Regular.ttf=usr/share/fonts/RedactedScript-Regular.ttf",
+              "data/icons/default/hicolor/16.png=usr/share/icons/hicolor/16x16/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor/24.png=usr/share/icons/hicolor/24x24/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor/32.png=usr/share/icons/hicolor/32x32/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor/48.png=usr/share/icons/hicolor/48x48/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor/64.png=usr/share/icons/hicolor/64x64/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor/128.png=usr/share/icons/hicolor/128x128/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor@2/16@2.png=usr/share/icons/hicolor/16x16@2/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor@2/24@2.png=usr/share/icons/hicolor/24x24@2/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor@2/32@2.png=usr/share/icons/hicolor/32x32@2/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor@2/48@2.png=usr/share/icons/hicolor/48x48@2/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor@2/64@2.png=usr/share/icons/hicolor/64x64@2/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/hicolor@2/128@2.png=usr/share/icons/hicolor/128x128@2/apps/io.github.elly_code.jorts.png",
+              "data/icons/default/scalable.svg=usr/share/icons/hicolor/scalable/apps/io.github.elly_code.jorts.svg"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "windows": {
+    "msys2_prefix": "mingw64",
+    "gdk_backend": "win32",
+    "gtk_theme": "io.elementary.stylesheet.blueberry",
+    "gtk_icon_theme": "Adwaita",
+    "gtk_font_name": "Inter Variable Text 9",
+    "build_dir": "build-windows-x86_64",
+    "packages": [
+      "mingw-w64-x86_64-vala",
+      "mingw-w64-x86_64-gtk4",
+      "mingw-w64-x86_64-granite7",
+      "mingw-w64-x86_64-libgee",
+      "mingw-w64-x86_64-json-glib",
+      "mingw-w64-x86_64-librsvg",
+      "mingw-w64-x86_64-gsettings-desktop-schemas",
+      "mingw-w64-x86_64-hicolor-icon-theme",
+      "mingw-w64-x86_64-adwaita-icon-theme",
+      "mingw-w64-x86_64-gtk-elementary-theme"
+    ],
+    "native_projects": [
+      {
+        "name": "jorts",
+        "dir": ".",
+        "build": [
+          "meson setup \"$SQGI_WINDOWS_BUILD_DIR\" --wipe --prefix \"$SQGI_WINDOWS_PREFIX\" --buildtype=release -Dwindows=true -Ddevelopment=false -Dlegacy-rdnn=false -Dicon-variant=default --cross-file \"$SQGI_MESON_CROSS_FILE\" || meson setup \"$SQGI_WINDOWS_BUILD_DIR\" --prefix \"$SQGI_WINDOWS_PREFIX\" --buildtype=release -Dwindows=true -Ddevelopment=false -Dlegacy-rdnn=false -Dicon-variant=default --cross-file \"$SQGI_MESON_CROSS_FILE\"",
+          "meson compile -C \"$SQGI_WINDOWS_BUILD_DIR\""
+        ],
+        "files": [
+          "build-windows-x86_64/data/io.github.elly_code.jorts.gschema.xml=share/glib-2.0/schemas/io.github.elly_code.jorts.gschema.xml",
+          "data/fonts/RedactedScript-Regular.ttf=share/fonts/RedactedScript-Regular.ttf"
+        ]
+      }
+    ],
+    "nsis_options": {
+      "installer_name": "Jorts-Setup.exe",
+      "install_dir": "$LOCALAPPDATA\\Programs\\io.github.elly_code.jorts",
+      "request_execution_level": "user",
+      "icon": "windows/icons/icon.ico",
+      "desktop_shortcut": true,
+      "start_menu_shortcut": true,
+      "start_menu_folder": "Jorts",
+      "uninstall_registry": true
+    }
+  }
+}
