@@ -134,6 +134,8 @@
       "mingw-w64-x86_64-gsettings-desktop-schemas",
       "mingw-w64-x86_64-hicolor-icon-theme",
       "mingw-w64-x86_64-adwaita-icon-theme",
+      "mingw-w64-x86_64-adwaita-icon-theme-legacy",
+      "mingw-w64-x86_64-elementary-icon-theme",
       "mingw-w64-x86_64-gtk-elementary-theme"
     ],
     "native_projects": [
@@ -146,7 +148,22 @@
         ],
         "files": [
           "build-windows-x86_64/data/io.github.elly_code.jorts.gschema.xml=share/glib-2.0/schemas/io.github.elly_code.jorts.gschema.xml",
-          "data/fonts/RedactedScript-Regular.ttf=share/fonts/RedactedScript-Regular.ttf"
+          "data/fonts/RedactedScript-Regular.ttf=share/fonts/RedactedScript-Regular.ttf",
+          "data/icons/default/hicolor/16.png=share/icons/hicolor/16x16/apps/io.github.elly_code.jorts.png",
+          "data/icons/default/hicolor/24.png=share/icons/hicolor/24x24/apps/io.github.elly_code.jorts.png",
+          "data/icons/default/hicolor/32.png=share/icons/hicolor/32x32/apps/io.github.elly_code.jorts.png",
+          "data/icons/default/hicolor/48.png=share/icons/hicolor/48x48/apps/io.github.elly_code.jorts.png",
+          "data/icons/default/hicolor/64.png=share/icons/hicolor/64x64/apps/io.github.elly_code.jorts.png",
+          "data/icons/default/hicolor/128.png=share/icons/hicolor/128x128/apps/io.github.elly_code.jorts.png",
+          "data/icons/default/hicolor/256.png=share/icons/hicolor/256x256/apps/io.github.elly_code.jorts.png",
+          "data/icons/default/hicolor/512.png=share/icons/hicolor/512x512/apps/io.github.elly_code.jorts.png",
+          "data/icons/default/hicolor@2/16@2.png=share/icons/hicolor/16x16@2/apps/io.github.elly_code.jorts.png",
+          "data/icons/default/hicolor@2/24@2.png=share/icons/hicolor/24x24@2/apps/io.github.elly_code.jorts.png",
+          "data/icons/default/hicolor@2/32@2.png=share/icons/hicolor/32x32@2/apps/io.github.elly_code.jorts.png",
+          "data/icons/default/hicolor@2/48@2.png=share/icons/hicolor/48x48@2/apps/io.github.elly_code.jorts.png",
+          "data/icons/default/hicolor@2/64@2.png=share/icons/hicolor/64x64@2/apps/io.github.elly_code.jorts.png",
+          "data/icons/default/hicolor@2/128@2.png=share/icons/hicolor/128x128@2/apps/io.github.elly_code.jorts.png",
+          "data/icons/default/scalable.svg=share/icons/hicolor/scalable/apps/io.github.elly_code.jorts.svg"
         ]
       }
     ],
