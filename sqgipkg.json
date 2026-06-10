@@ -5,7 +5,7 @@
     "linux": "build-linux-x86_64/src/io.github.elly_code.jorts",
     "windows": "build-windows-x86_64/src/io.github.elly_code.jorts.exe"
   },
-  "gtk_icon_theme": "Adwaita",
+  "gtk_icon_theme": "elementary",
   "linux": {
     "arches": [
       {
@@ -27,6 +27,7 @@
             "libgirepository1.0-dev",
             "adwaita-icon-theme",
             "hicolor-icon-theme",
+            "elementary-icon-theme",
             "librsvg2-common",
             "shared-mime-info"
           ]
@@ -81,6 +82,7 @@
             "libgirepository1.0-dev",
             "adwaita-icon-theme",
             "hicolor-icon-theme",
+            "elementary-icon-theme",
             "librsvg2-common",
             "shared-mime-info"
           ]
