@@ -14,16 +14,15 @@
         "entry_linux": "build-linux-x86_64/src/io.github.elly_code.jorts",
         "deb": {
           "download": true,
+          "suite": "noble",
           "packages": [
             "libgtk-4-dev",
-            "gir1.2-gtk-4.0",
-            "libgranite-7-dev",
-            "gir1.2-granite-7.0",
             "libgee-0.8-dev",
             "libglib2.0-dev",
             "libgdk-pixbuf-2.0-0",
             "libjson-glib-dev",
             "libportal-dev",
+            "libdrm-dev",
             "gobject-introspection",
             "libgirepository1.0-dev",
             "adwaita-icon-theme",
@@ -35,6 +34,36 @@
         },
         "inherit_native_projects": false,
         "native_projects": [
+          {
+            "name": "gtk",
+            "repo": "https://gitlab.gnome.org/GNOME/gtk.git",
+            "tag": "4.16.13",
+            "update": false,
+            "build": [
+              "SQGI_SASSC_ROOT=\"$(cd ../.. && pwd)/host-tools/sassc-root\"; SQGI_SASSC_DEBS=\"$(cd ../.. && pwd)/host-tools/debs\"; if ! command -v sassc >/dev/null 2>&1 && [ ! -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ]; then command -v apt-get >/dev/null 2>&1 || { echo \"GTK 4.16 from git requires host sassc; install it with: sudo apt-get install sassc\"; exit 1; }; command -v dpkg-deb >/dev/null 2>&1 || { echo \"GTK 4.16 from git requires dpkg-deb or host sassc; install it with: sudo apt-get install sassc\"; exit 1; }; mkdir -p \"$SQGI_SASSC_DEBS\" \"$SQGI_SASSC_ROOT\" && (cd \"$SQGI_SASSC_DEBS\" && apt-get download sassc libsass1) && for deb in \"$SQGI_SASSC_DEBS\"/*.deb; do dpkg-deb -x \"$deb\" \"$SQGI_SASSC_ROOT\"; done; fi; command -v sassc >/dev/null 2>&1 || [ -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ] || { echo \"GTK 4.16 from git requires host sassc; install it with: sudo apt-get install sassc\"; exit 1; }",
+              "SQGI_SASSC_ROOT=\"$(cd ../.. && pwd)/host-tools/sassc-root\"; SQGI_SASSC_LIBDIR=\"$(find \"$SQGI_SASSC_ROOT/usr/lib\" -mindepth 1 -maxdepth 1 -type d -print -quit 2>/dev/null)\"; if [ -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ]; then export PATH=\"$SQGI_SASSC_ROOT/usr/bin:$PATH\"; [ -n \"$SQGI_SASSC_LIBDIR\" ] && export LD_LIBRARY_PATH=\"$SQGI_SASSC_LIBDIR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\"; fi; meson setup \"${SQGI_LINUX_BUILD_DIR}-gtk\" --reconfigure --prefix /usr --libdir \"lib/$SQGI_LINUX_TRIPLET\" --buildtype=release --wrap-mode=nofallback -Dbuild-demos=false -Dbuild-examples=false -Dbuild-tests=false -Dbuild-testsuite=false -Ddocumentation=false -Dman-pages=false -Dintrospection=disabled -Dmedia-gstreamer=disabled -Dprint-cups=disabled -Dvulkan=disabled -Dcloudproviders=disabled -Dsysprof=disabled -Dtracker=disabled -Dcolord=disabled -Df16c=disabled -Dx11-backend=true -Dwayland-backend=true -Dbroadway-backend=false -Dmacos-backend=false -Dwin32-backend=false ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"} || meson setup \"${SQGI_LINUX_BUILD_DIR}-gtk\" --prefix /usr --libdir \"lib/$SQGI_LINUX_TRIPLET\" --buildtype=release --wrap-mode=nofallback -Dbuild-demos=false -Dbuild-examples=false -Dbuild-tests=false -Dbuild-testsuite=false -Ddocumentation=false -Dman-pages=false -Dintrospection=disabled -Dmedia-gstreamer=disabled -Dprint-cups=disabled -Dvulkan=disabled -Dcloudproviders=disabled -Dsysprof=disabled -Dtracker=disabled -Dcolord=disabled -Df16c=disabled -Dx11-backend=true -Dwayland-backend=true -Dbroadway-backend=false -Dmacos-backend=false -Dwin32-backend=false ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"}",
+              "SQGI_SASSC_ROOT=\"$(cd ../.. && pwd)/host-tools/sassc-root\"; SQGI_SASSC_LIBDIR=\"$(find \"$SQGI_SASSC_ROOT/usr/lib\" -mindepth 1 -maxdepth 1 -type d -print -quit 2>/dev/null)\"; if [ -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ]; then export PATH=\"$SQGI_SASSC_ROOT/usr/bin:$PATH\"; [ -n \"$SQGI_SASSC_LIBDIR\" ] && export LD_LIBRARY_PATH=\"$SQGI_SASSC_LIBDIR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\"; fi; meson compile -C \"${SQGI_LINUX_BUILD_DIR}-gtk\""
+            ],
+            "install": [
+              "DESTDIR=\"$SQGI_LINUX_SYSROOT\" meson install -C \"${SQGI_LINUX_BUILD_DIR}-gtk\""
+            ],
+            "stage": false
+          },
+          {
+            "name": "granite",
+            "repo": "https://github.com/elementary/granite.git",
+            "tag": "7.6.0",
+            "update": false,
+            "build": [
+              "SQGI_SASSC_ROOT=\"$(cd ../.. && pwd)/host-tools/sassc-root\"; SQGI_SASSC_DEBS=\"$(cd ../.. && pwd)/host-tools/debs\"; if ! command -v sassc >/dev/null 2>&1 && [ ! -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ]; then command -v apt-get >/dev/null 2>&1 || { echo \"Granite 7.6 from git requires host sassc; install it with: sudo apt-get install sassc\"; exit 1; }; command -v dpkg-deb >/dev/null 2>&1 || { echo \"Granite 7.6 from git requires dpkg-deb or host sassc; install it with: sudo apt-get install sassc\"; exit 1; }; mkdir -p \"$SQGI_SASSC_DEBS\" \"$SQGI_SASSC_ROOT\" && (cd \"$SQGI_SASSC_DEBS\" && apt-get download sassc libsass1) && for deb in \"$SQGI_SASSC_DEBS\"/*.deb; do dpkg-deb -x \"$deb\" \"$SQGI_SASSC_ROOT\"; done; fi; command -v sassc >/dev/null 2>&1 || [ -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ] || { echo \"Granite 7.6 from git requires host sassc; install it with: sudo apt-get install sassc\"; exit 1; }",
+              "SQGI_SASSC_ROOT=\"$(cd ../.. && pwd)/host-tools/sassc-root\"; SQGI_SASSC_LIBDIR=\"$(find \"$SQGI_SASSC_ROOT/usr/lib\" -mindepth 1 -maxdepth 1 -type d -print -quit 2>/dev/null)\"; if [ -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ]; then export PATH=\"$SQGI_SASSC_ROOT/usr/bin:$PATH\"; [ -n \"$SQGI_SASSC_LIBDIR\" ] && export LD_LIBRARY_PATH=\"$SQGI_SASSC_LIBDIR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\"; fi; meson setup \"${SQGI_LINUX_BUILD_DIR}-granite\" --reconfigure --prefix /usr --libdir \"lib/$SQGI_LINUX_TRIPLET\" --buildtype=release --wrap-mode=nofallback -Ddemo=false -Ddocumentation=false -Dintrospection=false ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"} || meson setup \"${SQGI_LINUX_BUILD_DIR}-granite\" --prefix /usr --libdir \"lib/$SQGI_LINUX_TRIPLET\" --buildtype=release --wrap-mode=nofallback -Ddemo=false -Ddocumentation=false -Dintrospection=false ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"}",
+              "SQGI_SASSC_ROOT=\"$(cd ../.. && pwd)/host-tools/sassc-root\"; SQGI_SASSC_LIBDIR=\"$(find \"$SQGI_SASSC_ROOT/usr/lib\" -mindepth 1 -maxdepth 1 -type d -print -quit 2>/dev/null)\"; if [ -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ]; then export PATH=\"$SQGI_SASSC_ROOT/usr/bin:$PATH\"; [ -n \"$SQGI_SASSC_LIBDIR\" ] && export LD_LIBRARY_PATH=\"$SQGI_SASSC_LIBDIR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\"; fi; meson compile -C \"${SQGI_LINUX_BUILD_DIR}-granite\""
+            ],
+            "install": [
+              "DESTDIR=\"$SQGI_LINUX_SYSROOT\" meson install -C \"${SQGI_LINUX_BUILD_DIR}-granite\""
+            ],
+            "stage": false
+          },
           {
             "name": "jorts",
             "dir": ".",
@@ -69,17 +98,16 @@
         "build_dir": "build-linux-aarch64",
         "entry_linux": "build-linux-aarch64/src/io.github.elly_code.jorts",
         "deb": {
+          "suite": "noble",
           "download": true,
           "packages": [
             "libgtk-4-dev",
-            "gir1.2-gtk-4.0",
-            "libgranite-7-dev",
-            "gir1.2-granite-7.0",
             "libgee-0.8-dev",
             "libglib2.0-dev",
             "libgdk-pixbuf-2.0-0",
             "libjson-glib-dev",
             "libportal-dev",
+            "libdrm-dev",
             "gobject-introspection",
             "libgirepository1.0-dev",
             "adwaita-icon-theme",
@@ -91,6 +119,36 @@
         },
         "inherit_native_projects": false,
         "native_projects": [
+          {
+            "name": "gtk",
+            "repo": "https://gitlab.gnome.org/GNOME/gtk.git",
+            "tag": "4.16.13",
+            "update": false,
+            "build": [
+              "SQGI_SASSC_ROOT=\"$(cd ../.. && pwd)/host-tools/sassc-root\"; SQGI_SASSC_DEBS=\"$(cd ../.. && pwd)/host-tools/debs\"; if ! command -v sassc >/dev/null 2>&1 && [ ! -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ]; then command -v apt-get >/dev/null 2>&1 || { echo \"GTK 4.16 from git requires host sassc; install it with: sudo apt-get install sassc\"; exit 1; }; command -v dpkg-deb >/dev/null 2>&1 || { echo \"GTK 4.16 from git requires dpkg-deb or host sassc; install it with: sudo apt-get install sassc\"; exit 1; }; mkdir -p \"$SQGI_SASSC_DEBS\" \"$SQGI_SASSC_ROOT\" && (cd \"$SQGI_SASSC_DEBS\" && apt-get download sassc libsass1) && for deb in \"$SQGI_SASSC_DEBS\"/*.deb; do dpkg-deb -x \"$deb\" \"$SQGI_SASSC_ROOT\"; done; fi; command -v sassc >/dev/null 2>&1 || [ -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ] || { echo \"GTK 4.16 from git requires host sassc; install it with: sudo apt-get install sassc\"; exit 1; }",
+              "SQGI_SASSC_ROOT=\"$(cd ../.. && pwd)/host-tools/sassc-root\"; SQGI_SASSC_LIBDIR=\"$(find \"$SQGI_SASSC_ROOT/usr/lib\" -mindepth 1 -maxdepth 1 -type d -print -quit 2>/dev/null)\"; if [ -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ]; then export PATH=\"$SQGI_SASSC_ROOT/usr/bin:$PATH\"; [ -n \"$SQGI_SASSC_LIBDIR\" ] && export LD_LIBRARY_PATH=\"$SQGI_SASSC_LIBDIR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\"; fi; meson setup \"${SQGI_LINUX_BUILD_DIR}-gtk\" --reconfigure --prefix /usr --libdir \"lib/$SQGI_LINUX_TRIPLET\" --buildtype=release --wrap-mode=nofallback -Dbuild-demos=false -Dbuild-examples=false -Dbuild-tests=false -Dbuild-testsuite=false -Ddocumentation=false -Dman-pages=false -Dintrospection=disabled -Dmedia-gstreamer=disabled -Dprint-cups=disabled -Dvulkan=disabled -Dcloudproviders=disabled -Dsysprof=disabled -Dtracker=disabled -Dcolord=disabled -Df16c=disabled -Dx11-backend=true -Dwayland-backend=true -Dbroadway-backend=false -Dmacos-backend=false -Dwin32-backend=false ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"} || meson setup \"${SQGI_LINUX_BUILD_DIR}-gtk\" --prefix /usr --libdir \"lib/$SQGI_LINUX_TRIPLET\" --buildtype=release --wrap-mode=nofallback -Dbuild-demos=false -Dbuild-examples=false -Dbuild-tests=false -Dbuild-testsuite=false -Ddocumentation=false -Dman-pages=false -Dintrospection=disabled -Dmedia-gstreamer=disabled -Dprint-cups=disabled -Dvulkan=disabled -Dcloudproviders=disabled -Dsysprof=disabled -Dtracker=disabled -Dcolord=disabled -Df16c=disabled -Dx11-backend=true -Dwayland-backend=true -Dbroadway-backend=false -Dmacos-backend=false -Dwin32-backend=false ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"}",
+              "SQGI_SASSC_ROOT=\"$(cd ../.. && pwd)/host-tools/sassc-root\"; SQGI_SASSC_LIBDIR=\"$(find \"$SQGI_SASSC_ROOT/usr/lib\" -mindepth 1 -maxdepth 1 -type d -print -quit 2>/dev/null)\"; if [ -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ]; then export PATH=\"$SQGI_SASSC_ROOT/usr/bin:$PATH\"; [ -n \"$SQGI_SASSC_LIBDIR\" ] && export LD_LIBRARY_PATH=\"$SQGI_SASSC_LIBDIR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\"; fi; meson compile -C \"${SQGI_LINUX_BUILD_DIR}-gtk\""
+            ],
+            "install": [
+              "DESTDIR=\"$SQGI_LINUX_SYSROOT\" meson install -C \"${SQGI_LINUX_BUILD_DIR}-gtk\""
+            ],
+            "stage": false
+          },
+          {
+            "name": "granite",
+            "repo": "https://github.com/elementary/granite.git",
+            "tag": "7.6.0",
+            "update": false,
+            "build": [
+              "SQGI_SASSC_ROOT=\"$(cd ../.. && pwd)/host-tools/sassc-root\"; SQGI_SASSC_DEBS=\"$(cd ../.. && pwd)/host-tools/debs\"; if ! command -v sassc >/dev/null 2>&1 && [ ! -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ]; then command -v apt-get >/dev/null 2>&1 || { echo \"Granite 7.6 from git requires host sassc; install it with: sudo apt-get install sassc\"; exit 1; }; command -v dpkg-deb >/dev/null 2>&1 || { echo \"Granite 7.6 from git requires dpkg-deb or host sassc; install it with: sudo apt-get install sassc\"; exit 1; }; mkdir -p \"$SQGI_SASSC_DEBS\" \"$SQGI_SASSC_ROOT\" && (cd \"$SQGI_SASSC_DEBS\" && apt-get download sassc libsass1) && for deb in \"$SQGI_SASSC_DEBS\"/*.deb; do dpkg-deb -x \"$deb\" \"$SQGI_SASSC_ROOT\"; done; fi; command -v sassc >/dev/null 2>&1 || [ -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ] || { echo \"Granite 7.6 from git requires host sassc; install it with: sudo apt-get install sassc\"; exit 1; }",
+              "SQGI_SASSC_ROOT=\"$(cd ../.. && pwd)/host-tools/sassc-root\"; SQGI_SASSC_LIBDIR=\"$(find \"$SQGI_SASSC_ROOT/usr/lib\" -mindepth 1 -maxdepth 1 -type d -print -quit 2>/dev/null)\"; if [ -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ]; then export PATH=\"$SQGI_SASSC_ROOT/usr/bin:$PATH\"; [ -n \"$SQGI_SASSC_LIBDIR\" ] && export LD_LIBRARY_PATH=\"$SQGI_SASSC_LIBDIR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\"; fi; meson setup \"${SQGI_LINUX_BUILD_DIR}-granite\" --reconfigure --prefix /usr --libdir \"lib/$SQGI_LINUX_TRIPLET\" --buildtype=release --wrap-mode=nofallback -Ddemo=false -Ddocumentation=false -Dintrospection=false ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"} || meson setup \"${SQGI_LINUX_BUILD_DIR}-granite\" --prefix /usr --libdir \"lib/$SQGI_LINUX_TRIPLET\" --buildtype=release --wrap-mode=nofallback -Ddemo=false -Ddocumentation=false -Dintrospection=false ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"}",
+              "SQGI_SASSC_ROOT=\"$(cd ../.. && pwd)/host-tools/sassc-root\"; SQGI_SASSC_LIBDIR=\"$(find \"$SQGI_SASSC_ROOT/usr/lib\" -mindepth 1 -maxdepth 1 -type d -print -quit 2>/dev/null)\"; if [ -x \"$SQGI_SASSC_ROOT/usr/bin/sassc\" ]; then export PATH=\"$SQGI_SASSC_ROOT/usr/bin:$PATH\"; [ -n \"$SQGI_SASSC_LIBDIR\" ] && export LD_LIBRARY_PATH=\"$SQGI_SASSC_LIBDIR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\"; fi; meson compile -C \"${SQGI_LINUX_BUILD_DIR}-granite\""
+            ],
+            "install": [
+              "DESTDIR=\"$SQGI_LINUX_SYSROOT\" meson install -C \"${SQGI_LINUX_BUILD_DIR}-granite\""
+            ],
+            "stage": false
+          },
           {
             "name": "jorts",
             "dir": ".",
@@ -126,7 +184,7 @@
     "msys2_prefix": "mingw64",
     "gdk_backend": "win32",
     "gtk_theme": "io.elementary.stylesheet.blueberry",
-    "gtk_icon_theme": "Adwaita",
+    "gtk_icon_theme": "elementary",
     "gtk_font_name": "Inter Variable Text 9",
     "build_dir": "build-windows-x86_64",
     "packages": [
@@ -139,8 +197,6 @@
       "mingw-w64-x86_64-gsettings-desktop-schemas",
       "mingw-w64-x86_64-hicolor-icon-theme",
       "mingw-w64-x86_64-adwaita-icon-theme",
-      "mingw-w64-x86_64-adwaita-icon-theme-legacy",
-      "mingw-w64-x86_64-elementary-icon-theme",
       "mingw-w64-x86_64-gtk-elementary-theme"
     ],
     "native_projects": [
