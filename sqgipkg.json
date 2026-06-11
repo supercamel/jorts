@@ -184,7 +184,7 @@
     "msys2_prefix": "mingw64",
     "gdk_backend": "win32",
     "gtk_theme": "io.elementary.stylesheet.blueberry",
-    "gtk_icon_theme": "elementary",
+    "gtk_icon_theme": "Adwaita",
     "gtk_font_name": "Inter Variable Text 9",
     "build_dir": "build-windows-x86_64",
     "packages": [
@@ -198,7 +198,7 @@
       "mingw-w64-x86_64-gsettings-desktop-schemas",
       "mingw-w64-x86_64-hicolor-icon-theme",
       "mingw-w64-x86_64-adwaita-icon-theme",
-      "mingw-w64-x86_64-elementary-icon-theme",
+      "mingw-w64-x86_64-adwaita-icon-theme-legacy",
       "mingw-w64-x86_64-gtk-elementary-theme"
     ],
     "native_projects": [
@@ -211,6 +211,7 @@
         ],
         "files": [
           "build-windows-x86_64/data/io.github.elly_code.jorts.gschema.xml=share/glib-2.0/schemas/io.github.elly_code.jorts.gschema.xml",
+          "windows/loaders.cache=lib/gdk-pixbuf-2.0/2.10.0/loaders.cache",
           "data/fonts/RedactedScript-Regular.ttf=share/fonts/RedactedScript-Regular.ttf",
           "data/icons/default/hicolor/16.png=share/icons/hicolor/16x16/apps/io.github.elly_code.jorts.png",
           "data/icons/default/hicolor/24.png=share/icons/hicolor/24x24/apps/io.github.elly_code.jorts.png",

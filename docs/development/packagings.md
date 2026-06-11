@@ -45,17 +45,22 @@ The manifest currently does this:
 - Stages GTK settings, schemas, themes, icon themes, pixbuf SVG loading support,
   fonts, app icons, and the app metadata needed by the bundles.
 
-Important icon/theme detail: the app sets the GTK icon theme to `elementary`.
-The bundles therefore need the elementary icon theme as runtime data, not just
-the elementary GTK stylesheet. If icons disappear while the theme still works,
-check `sqgipkg.json` first:
+Important icon/theme detail: the app uses the elementary GTK stylesheet on all
+platforms, but Windows uses the Adwaita icon theme. The Windows split avoids
+elementary symbolic SVGs that GTK's Windows renderer can resolve but fails to
+draw. If icons disappear while the theme still works, check `sqgipkg.json`
+first:
 
 - Linux package lists should include `elementary-icon-theme`.
-- Windows package lists should include `mingw-w64-x86_64-elementary-icon-theme`.
+- Windows package lists should include `mingw-w64-x86_64-adwaita-icon-theme`
+  and `mingw-w64-x86_64-adwaita-icon-theme-legacy`.
 - Both bundles also need SVG icon loading support (`librsvg`/gdk-pixbuf loader
   data), because many symbolic icons are SVG files. On Windows, keep
   `mingw-w64-x86_64-gdk-pixbuf2` explicit so the bundle includes
   `gdk-pixbuf-query-loaders.exe` for the runtime loader cache.
+- Windows also stages `windows/loaders.cache` into
+  `lib/gdk-pixbuf-2.0/2.10.0/loaders.cache`. Without that default cache, direct
+  launches can resolve icon names but fail to decode SVG toolbar icons.
 
 ### Local build commands
 

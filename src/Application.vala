@@ -121,7 +121,11 @@ public class Jorts.Application : Gtk.Application {
         // Force the eOS icon theme, and set the blueberry as fallback, if for some reason it fails for individual notes
         var granite_settings = Granite.Settings.get_default ();
         gtk_settings = Gtk.Settings.get_default ();
+#if WINDOWS
+        gtk_settings.gtk_icon_theme_name = "Adwaita";
+#else
         gtk_settings.gtk_icon_theme_name = "elementary";
+#endif
         gtk_settings.gtk_theme_name = DEFAULT_STYLESHEET;
 
         // Also follow dark if system is dark lIke mY sOul.
