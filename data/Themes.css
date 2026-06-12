@@ -184,15 +184,16 @@ window.themed entry {
 
 window.themed editablelabel {
     color: var(--accent_color_900);
+    border: 1px solid transparent;
 }
 
 window.themed editablelabel:hover,
 window.themed editablelabel:focus {
-    border: 1px solid alpha(var(--accent_color),0.88);
+    border-color: alpha(var(--accent_color),0.88);
 }
 
 window.themed editablelabel.editing {
-    border: 1px solid var(--accent_color_700);
+    border-color: var(--accent_color_700);
 }
 
 window.themed:backdrop editablelabel {
