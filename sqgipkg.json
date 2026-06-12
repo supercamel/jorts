@@ -222,7 +222,6 @@
     ],
     "build_dir": "build-windows-x86_64",
     "packages": [
-      "mingw-w64-x86_64-vala",
       "mingw-w64-x86_64-gtk4",
       "mingw-w64-x86_64-granite7",
       "mingw-w64-x86_64-libgee",
